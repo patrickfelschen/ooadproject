@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="HelloApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="de.hsos.ooadproject.HelloApplication" />
+  <configuration default="false" name="de.hsos.ooadproject.Application" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="de.hsos.ooadproject.Application" />
     <module name="ooadproject.main" />
     <extension name="coverage">
       <pattern>
