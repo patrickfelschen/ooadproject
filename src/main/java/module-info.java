@@ -8,12 +8,12 @@ module de.hsos.ooadproject {
   requires org.kordamp.ikonli.javafx;
   requires eu.hansolo.tilesfx;
   requires MaterialFX;
-  requires com.jfoenix;
+  requires org.kordamp.ikonli.material2;
 
   opens de.hsos.ooadproject to javafx.fxml;
   exports de.hsos.ooadproject;
-    exports de.hsos.ooadproject.Controller;
-    opens de.hsos.ooadproject.Controller to javafx.fxml;
-  exports de.hsos.ooadproject.Model;
-  opens de.hsos.ooadproject.Model to javafx.fxml;
+  exports de.hsos.ooadproject.controller;
+  opens de.hsos.ooadproject.controller to javafx.fxml;
+  exports de.hsos.ooadproject.model;
+  opens de.hsos.ooadproject.model to javafx.fxml;
 }

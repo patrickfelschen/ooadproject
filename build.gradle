@@ -39,11 +39,12 @@ dependencies {
         exclude(group: 'org.openjfx')
     }
     implementation('org.kordamp.ikonli:ikonli-javafx:12.3.1')
+    implementation ('org.kordamp.ikonli:ikonli-material2-pack:12.3.1')
     implementation 'io.github.palexdev:materialfx:11.13.5'
     implementation('eu.hansolo:tilesfx:11.48') {
         exclude(group: 'org.openjfx')
     }
-    implementation('com.jfoenix:jfoenix:9.0.10')
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

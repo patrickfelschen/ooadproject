@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx"
+      fx:controller="de.hsos.ooadproject.controller.WatchListController"
+      prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <fx:include source="main-menu-view.fxml"/>
+        <fx:include source="watch-list-table-view.fxml" VBox.vgrow="ALWAYS"/>
+    </children>
+</VBox>
