@@ -17,7 +17,7 @@ public class Application extends javafx.application.Application {
 
     Scene scene = new Scene(fxmlLoader.load());
 
-    stage.setTitle("Hello!");
+    stage.setTitle("Aktienverwaltung");
     stage.setScene(scene);
     stage.show();
   }
