@@ -1,4 +1,4 @@
 package de.hsos.ooadproject.controller;
 
-public class StockListTableController{
+public class StockListTableController {
 }

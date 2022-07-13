@@ -15,6 +15,27 @@ public class Router {
   private final Map<String, String> routes;
   private Stage primaryStage;
 
+  private Router() {
+    this.routes = new HashMap<>();
+
+    this.routes.put("watchList", "watch-list-view.fxml");
+    this.routes.put("stockList", "stock-list-view.fxml");
+    this.routes.put("portfolio", "portfolio-view.fxml");
+    this.routes.put("stockDetails", "stock-details-view.fxml");
+  }
+
+  public static void bind(Stage primaryStage) throws IOException {
+    getInstance().primaryStage = primaryStage;
+  }
+
+  public static Router getInstance() {
+    if (singleInstance == null) {
+      singleInstance = new Router();
+    }
+
+    return singleInstance;
+  }
+
   public void navigate(String routeName, Object data) throws IOException {
     String fxmlfile = this.routes.get(routeName);
     FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxmlfile));
@@ -46,26 +67,5 @@ public class Router {
 
   public void navigate(String routeName) throws IOException {
     navigate(routeName, null);
-  }
-
-  private Router() throws IOException {
-    this.routes = new HashMap<>();
-
-    this.routes.put("watchList", "watch-list-view.fxml");
-    this.routes.put("stockList", "stock-list-view.fxml");
-    this.routes.put("portfolio", "portfolio-view.fxml");
-    this.routes.put("stockDetails", "stock-details-view.fxml");
-  }
-
-  public static void bind(Stage primaryStage) throws IOException {
-    getInstance().primaryStage = primaryStage;
-  }
-
-  public static Router getInstance() throws IOException {
-    if (singleInstance == null) {
-      singleInstance = new Router();
-    }
-
-    return singleInstance;
   }
 }

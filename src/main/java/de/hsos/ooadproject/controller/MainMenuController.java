@@ -20,5 +20,6 @@ public class MainMenuController extends Routable {
   }
 
   @Override
-  public void setData(Object data) { }
+  public void setData(Object data) {
+  }
 }
