@@ -6,9 +6,9 @@ module de.hsos.ooadproject {
   requires org.controlsfx.controls;
   requires com.dlsc.formsfx;
   requires org.kordamp.ikonli.javafx;
+  requires org.kordamp.ikonli.material2;
   requires eu.hansolo.tilesfx;
   requires MaterialFX;
-  requires org.kordamp.ikonli.material2;
 
   opens de.hsos.ooadproject to javafx.fxml;
   exports de.hsos.ooadproject;
