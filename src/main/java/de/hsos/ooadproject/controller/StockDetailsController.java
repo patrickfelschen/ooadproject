@@ -13,14 +13,7 @@ import java.io.IOException;
 public class StockDetailsController extends Routable {
 
   @FXML
-  public Label lbStockName;
-  public Label lbSymbol;
-  public Label lbVortag;
-  public Label lbBid;
-  public Label lbAsk;
-  public Label lbPercent;
-  public Label lbTime;
-  public Label lbPlusMinus;
+  public Label lbStockName, lbSymbol, lbVortag, lbBid, lbAsk, lbPercent, lbTime, lbPlusMinus;
   public LineChart<String, Number> lineChart;
   private Stock stock;
 

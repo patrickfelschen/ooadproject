@@ -24,26 +24,11 @@ public class StockListTableController implements Initializable {
           new Stock("Allianz", "DE0008404005", 177.96f, 0.0f, 0.0f, 0.0f, 0.0f, "00:00:00"),
           new Stock("Basler", "DE0005102008", 88.70f, 0.0f, 0.0f, 0.0f, 0.0f, "00:00:00")
   );
+
   @FXML
-  public TableColumn<Stock, String> colBid;
-  @FXML
-  public TableColumn<Stock, String> colAsk;
-  @FXML
-  public TableColumn<Stock, String> colPercent;
-  @FXML
-  public TableColumn<Stock, String> colPlusMinus;
-  @FXML
-  public TableColumn<Stock, String> colTime;
-  @FXML
-  public TableColumn<Stock, String> colAction;
+  public TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
   @FXML
   private TableView<Stock> stockListTable;
-  @FXML
-  private TableColumn<Stock, String> colName;
-  @FXML
-  private TableColumn<Stock, String> colSymbol;
-  @FXML
-  private TableColumn<Stock, String> colVortag;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
