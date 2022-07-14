@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <SplitPane xmlns:fx="http://javafx.com/fxml/1" dividerPositions="0.7328947368421053" prefHeight="396.0"
-           prefWidth="762.0" xmlns="http://javafx.com/javafx/18"
+           prefWidth="762.0" xmlns="http://javafx.com/javafx/16"
            fx:controller="de.hsos.ooadproject.controller.StockDetailsController">
     <items>
         <AnchorPane minHeight="200.0" minWidth="500.0" prefHeight="400.0" prefWidth="500.0">
@@ -57,7 +57,7 @@
                 </children>
             </HBox>
         </AnchorPane>
-        <AnchorPane maxWidth="200.0" minHeight="0.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane maxWidth="250.0" minHeight="0.0" minWidth="250.0" prefHeight="250.0" prefWidth="250.0">
             <MFXButton buttonType="RAISED" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0"
                        prefWidth="76.0" style="-fx-background-color: #496F22;" text="Kaufen" textFill="WHITE"
                        AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="100.0"/>
