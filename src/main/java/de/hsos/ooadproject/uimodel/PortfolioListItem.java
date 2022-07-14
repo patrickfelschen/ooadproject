@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class PortfolioListItem extends ListCell<Stock> {
     @FXML
-    private Label nameLabel, latestPrice, latestPriceValue, amountInEUR, amountInEURValue, amountInPercent, amountInPercentValue;
+    private Label nameLabel, symbolLabel, latestPrice, latestPriceValue, amountInEUR, amountInEURValue, amountInPercent, amountInPercentValue;
     @FXML
     private GridPane gridPane;
     private FXMLLoader loader;
@@ -37,7 +37,7 @@ public class PortfolioListItem extends ListCell<Stock> {
             }
 
             nameLabel.setText(stock.getName());
-            latestPrice.setText(Float.toString(stock.getVortag()));
+            symbolLabel.setText(stock.getSymbol());
 
             setText(null);
             setGraphic(gridPane);
