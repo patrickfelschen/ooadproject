@@ -1,7 +1,7 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
-import de.hsos.ooadproject.model.Stock;
+import de.hsos.ooadproject.datamodel.Stock;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

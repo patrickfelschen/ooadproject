@@ -14,6 +14,8 @@ module de.hsos.ooadproject {
   exports de.hsos.ooadproject;
   exports de.hsos.ooadproject.controller;
   opens de.hsos.ooadproject.controller to javafx.fxml;
-  exports de.hsos.ooadproject.model;
-  opens de.hsos.ooadproject.model to javafx.fxml;
+  exports de.hsos.ooadproject.datamodel;
+  opens de.hsos.ooadproject.datamodel to javafx.fxml;
+  exports de.hsos.ooadproject.uimodel;
+  opens de.hsos.ooadproject.uimodel to javafx.fxml;
 }

@@ -1,4 +1,4 @@
-package de.hsos.ooadproject.model;
+package de.hsos.ooadproject.datamodel;
 
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;

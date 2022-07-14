@@ -1,7 +1,7 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
-import de.hsos.ooadproject.model.Stock;
+import de.hsos.ooadproject.datamodel.Stock;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.enums.ButtonType;
 import javafx.collections.FXCollections;
