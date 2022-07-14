@@ -21,7 +21,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
    </rowConstraints>
    <children>
-      <Label text="Letzter Kurs" GridPane.rowIndex="1">
+      <Label fx:id="latestPrice" text="Letzter Kurs" GridPane.rowIndex="1">
          <font>
             <Font size="14.0" />
          </font>

@@ -1,5 +1,6 @@
 package de.hsos.ooadproject.controller;
 
+import de.hsos.ooadproject.Router;
 import de.hsos.ooadproject.uimodel.PortfolioListItem;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.collections.FXCollections;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,7 +41,19 @@ public class PortfolioController extends Routable implements Initializable {
                 new Stock("Birne", "DE0008404005", 177.96f, 0.0f, 0.0f, 0.0f, 0.0f, "00:00:00")
         );
 
-        portfolioList.setCellFactory(portfolioListView -> new PortfolioListItem());
+        portfolioList.setCellFactory(portfolioListView -> {
+            PortfolioListItem item = new PortfolioListItem();
+            item.setOnMouseClicked(event -> {
+                try {
+                    Router.getInstance().navigate("stockDetails", item.getItem());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            return item;
+        });
+
         portfolioList.getItems().addAll(listData);
     }
 }
