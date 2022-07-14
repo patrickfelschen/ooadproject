@@ -13,8 +13,9 @@ import java.io.IOException;
 public class StockDetailsController extends Routable {
 
   @FXML
-  public Label lbStockName, lbSymbol, lbVortag, lbBid, lbAsk, lbPercent, lbTime, lbPlusMinus;
-  public LineChart<String, Number> lineChart;
+  private Label lbStockName, lbSymbol, lbVortag, lbBid, lbAsk, lbPercent, lbTime, lbPlusMinus;
+  @FXML
+  private LineChart<String, Number> lineChart;
   private Stock stock;
 
   public void setStock(Stock stock) {
@@ -49,7 +50,7 @@ public class StockDetailsController extends Routable {
 
   @FXML
   void navigateBack(ActionEvent e) throws IOException {
-    Router.getInstance().navigate("watchList");
+    Router.getInstance().popRoute();
   }
 
   @Override

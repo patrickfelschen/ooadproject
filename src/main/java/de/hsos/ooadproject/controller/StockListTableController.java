@@ -26,7 +26,7 @@ public class StockListTableController implements Initializable {
   );
 
   @FXML
-  public TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
+  private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
   @FXML
   private TableView<Stock> stockListTable;
 
@@ -85,6 +85,6 @@ public class StockListTableController implements Initializable {
   }
 
   void showSockDetailsScreen(MouseEvent e, Stock stock) throws IOException {
-    Router.getInstance().navigate("stockDetails", stock);
+    Router.getInstance().pushRoute("stockDetails", stock);
   }
 }

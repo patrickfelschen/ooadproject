@@ -9,14 +9,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class Router {
   private static Router singleInstance = null;
   private final Map<String, String> routes;
+  private final Stack<String> navStack;
   private Stage primaryStage;
 
   private Router() {
     this.routes = new HashMap<>();
+    this.navStack = new Stack<>();
 
     this.routes.put("watchList", "watch-list-view.fxml");
     this.routes.put("stockList", "stock-list-view.fxml");
@@ -36,7 +39,7 @@ public class Router {
     return singleInstance;
   }
 
-  public void navigate(String routeName, Object data) throws IOException {
+  private void navigate(String routeName, Object data) throws IOException {
     String fxmlfile = this.routes.get(routeName);
     FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxmlfile));
     Parent root = loader.load();
@@ -68,7 +71,24 @@ public class Router {
     this.primaryStage.show();
   }
 
-  public void navigate(String routeName) throws IOException {
-    navigate(routeName, null);
+  public void popRoute(Object data) throws IOException {
+    if (navStack.isEmpty()) return;
+    navStack.pop();
+    String routeName = navStack.peek();
+    this.navigate(routeName, data);
+  }
+
+  public void popRoute() throws IOException {
+    popRoute(null);
+  }
+
+  public void pushRoute(String routeName, Object data) throws IOException {
+    if (!routes.containsKey(routeName)) return;
+    this.navigate(routeName, data);
+    this.navStack.push(routeName);
+  }
+
+  public void pushRoute(String routeName) throws IOException {
+    pushRoute(routeName, null);
   }
 }

@@ -8,6 +8,6 @@ public class MainApp extends Application {
   public void start(Stage stage) throws Exception {
     stage.setTitle("Aktienverwaltung");
     Router.bind(stage);
-    Router.getInstance().navigate("watchList");
+    Router.getInstance().pushRoute("watchList");
   }
 }

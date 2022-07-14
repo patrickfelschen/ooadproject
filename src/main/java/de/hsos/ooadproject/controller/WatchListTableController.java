@@ -22,7 +22,7 @@ public class WatchListTableController implements Initializable {
           new Stock("Basler", "DE0005102008", 88.70f, 0.0f, 0.0f, 0.0f, 0.0f, "00:00:00")
   );
   @FXML
-  public TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime;
+  private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime;
   @FXML
   private TableView<Stock> watchListTable;
 
@@ -58,7 +58,7 @@ public class WatchListTableController implements Initializable {
   }
 
   void showSockDetailsScreen(MouseEvent e, Stock stock) throws IOException {
-    Router.getInstance().navigate("stockDetails", stock);
+    Router.getInstance().pushRoute("stockDetails", stock);
   }
 }
 

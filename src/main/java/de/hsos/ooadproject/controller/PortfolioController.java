@@ -1,8 +1,8 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
-import de.hsos.ooadproject.uimodel.PortfolioListItem;
 import de.hsos.ooadproject.datamodel.Stock;
+import de.hsos.ooadproject.uimodel.PortfolioListItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,9 +16,9 @@ import java.util.ResourceBundle;
 
 public class PortfolioController extends Routable implements Initializable {
     @FXML
-    PieChart chart;
+    private PieChart chart;
     @FXML
-    ListView<Stock> portfolioList;
+    private ListView<Stock> portfolioList;
     private ObservableList<PieChart.Data> chartData;
     private ObservableList<Stock> listData;
 
@@ -45,7 +45,7 @@ public class PortfolioController extends Routable implements Initializable {
             PortfolioListItem item = new PortfolioListItem();
             item.setOnMouseClicked(event -> {
                 try {
-                    Router.getInstance().navigate("stockDetails", item.getItem());
+                    Router.getInstance().pushRoute("stockDetails", item.getItem());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

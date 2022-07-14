@@ -8,15 +8,15 @@ import java.io.IOException;
 public class MainMenuController extends Routable {
 
   public void showWatchList(ActionEvent e) throws IOException {
-    Router.getInstance().navigate("watchList");
+    Router.getInstance().pushRoute("watchList");
   }
 
   public void showStockList(ActionEvent e) throws IOException {
-    Router.getInstance().navigate("stockList");
+    Router.getInstance().pushRoute("stockList");
   }
 
   public void showPortfolio(ActionEvent e) throws IOException {
-    Router.getInstance().navigate("portfolio");
+    Router.getInstance().pushRoute("portfolio");
   }
 
   @Override
