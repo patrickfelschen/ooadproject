@@ -36,7 +36,7 @@ public class PortfolioListItem extends ListCell<Stock> {
                 }
             }
 
-            nameLabel.setText(stock.getName().toString());
+            nameLabel.setText(stock.getName());
             latestPrice.setText(Float.toString(stock.getVortag()));
 
             setText(null);
