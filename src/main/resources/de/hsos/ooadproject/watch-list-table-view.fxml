@@ -5,9 +5,8 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18"
       fx:controller="de.hsos.ooadproject.controller.WatchListTableController">
-   <children>
-      <TableView fx:id="watchListTable" VBox.vgrow="ALWAYS">
-         <columns>
+    <TableView fx:id="watchListTable" VBox.vgrow="ALWAYS">
+        <columns>
             <TableColumn fx:id="colName" minWidth="20.0" prefWidth="100.0" text="Name"/>
             <TableColumn fx:id="colSymbol" minWidth="20.0" prefWidth="100.0" text="Symbol"/>
             <TableColumn fx:id="colVortag" minWidth="20.0" prefWidth="100.0" text="Vortag"/>
@@ -16,10 +15,9 @@
             <TableColumn fx:id="colPercent" minWidth="20.0" prefWidth="100.0" text="\%"/>
             <TableColumn fx:id="colPlusMinus" minWidth="20.0" prefWidth="100.0" text="+/-"/>
             <TableColumn fx:id="colTime" minWidth="20.0" prefWidth="100.0" text="Zeit"/>
-         </columns>
-         <columnResizePolicy>
+        </columns>
+        <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-         </columnResizePolicy>
-      </TableView>
-   </children>
+        </columnResizePolicy>
+    </TableView>
 </VBox>

@@ -73,19 +73,6 @@ public class WatchListTableController implements Initializable {
 
   void showSockDetailsScreen(MouseEvent e, Stock stock) throws IOException {
     Router.getInstance().navigate("stockDetails", stock);
-
-    /*FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("stock-details-view.fxml"));
-    Parent root = loader.load();
-
-    StockDetailsController controller = loader.getController();
-    controller.setStock(stock);
-
-    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-
-     */
   }
 }
 

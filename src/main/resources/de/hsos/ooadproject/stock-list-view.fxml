@@ -5,7 +5,6 @@
       xmlns="http://javafx.com/javafx"
       fx:controller="de.hsos.ooadproject.controller.StockListController"
       prefHeight="400.0" prefWidth="600.0">
-    <children>
-        <fx:include source="main-menu-view.fxml"/>
-    </children>
+    <fx:include source="main-menu-view.fxml"/>
+    <fx:include source="stock-list-table.fxml" VBox.vgrow="ALWAYS"/>
 </VBox>
