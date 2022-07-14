@@ -62,6 +62,9 @@ public class Router {
     primaryStage.setHeight(height);
     primaryStage.setWidth(width);
 
+    primaryStage.setMinHeight(400);
+    primaryStage.setMinWidth(720);
+
     this.primaryStage.show();
   }
 
