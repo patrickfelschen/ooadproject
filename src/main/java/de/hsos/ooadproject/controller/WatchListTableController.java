@@ -1,6 +1,8 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
+import de.hsos.ooadproject.StockManager;
+import de.hsos.ooadproject.User;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,10 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class WatchListTableController implements Initializable {
-  final ObservableList<Stock> aktien = FXCollections.observableArrayList(
-          new Stock("Allianz", "DE0008404005", 177.96f, 0.0f, 0.0f, 0.0f, 0.0f, "00:00:00"),
-          new Stock("Basler", "DE0005102008", 88.70f, 0.0f, 0.0f, 0.0f, 0.0f, "00:00:00")
-  );
+  final ObservableList<Stock> aktien = FXCollections.observableArrayList();
   @FXML
   private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime;
   @FXML
@@ -28,6 +27,9 @@ public class WatchListTableController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    User user = new User();
+    StockManager sm = new StockManager();
+    aktien.setAll(sm.getWatchList(user.getWatchListStockIds()));
 
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));

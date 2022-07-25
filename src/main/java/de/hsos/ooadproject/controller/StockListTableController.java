@@ -1,6 +1,7 @@
 package de.hsos.ooadproject.controller;
 
-import de.hsos.ooadproject.Router;
+import de.hsos.ooadproject.StockManager;
+import de.hsos.ooadproject.User;
 import de.hsos.ooadproject.datamodel.Stock;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.enums.ButtonType;
@@ -13,18 +14,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StockListTableController implements Initializable {
-  final ObservableList<Stock> aktien = FXCollections.observableArrayList(
-          new Stock("Allianz", "DE0008404005", 177.96f, 0.0f, 0.0f, 0.0f, 0.0f, "00:00:00"),
-          new Stock("Basler", "DE0005102008", 88.70f, 0.0f, 0.0f, 0.0f, 0.0f, "00:00:00")
-  );
-
+  final ObservableList<Stock> aktien = FXCollections.observableArrayList();
   @FXML
   private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
   @FXML
@@ -32,6 +28,11 @@ public class StockListTableController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    User user = new User();
+    StockManager sm = new StockManager();
+    aktien.setAll(sm.getStockList());
+
+    //s.nameProperty().addListener((observable, oldValue, newValue) -> stockListTable.refresh());
 
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
@@ -51,6 +52,7 @@ public class StockListTableController implements Initializable {
         btn.setOnAction(e -> {
           Stock data = getTableView().getItems().get(getIndex());
           System.out.println(data);
+          user.addStockToWatchList(data.getSymbol());
         });
       }
 
@@ -72,7 +74,7 @@ public class StockListTableController implements Initializable {
           Stock rowData = row.getItem();
           System.out.println(rowData.getName());
           try {
-            showSockDetailsScreen(event, rowData);
+            showSockDetailsScreen(rowData);
           } catch (IOException e) {
             throw new RuntimeException(e);
           }
@@ -84,7 +86,7 @@ public class StockListTableController implements Initializable {
     stockListTable.setItems(aktien);
   }
 
-  void showSockDetailsScreen(MouseEvent e, Stock stock) throws IOException {
-    Router.getInstance().pushRoute("stockDetails", stock);
+  void showSockDetailsScreen(Stock stock) throws IOException {
+    // Router.getInstance().pushRoute("stockDetails", stock);
   }
 }

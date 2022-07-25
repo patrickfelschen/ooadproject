@@ -28,6 +28,38 @@ public class Stock {
     return this.name.get();
   }
 
+  public void setSymbol(String symbol) {
+    this.symbol.set(symbol);
+  }
+
+  public void setVortag(float vortag) {
+    this.vortag.set(vortag);
+  }
+
+  public void setBid(float bid) {
+    this.bid.set(bid);
+  }
+
+  public void setAsk(float ask) {
+    this.ask.set(ask);
+  }
+
+  public void setPercent(float percent) {
+    this.percent.set(percent);
+  }
+
+  public void setPlusMinus(float plusMinus) {
+    this.plusMinus.set(plusMinus);
+  }
+
+  public void setTime(String time) {
+    this.time.set(time);
+  }
+
+  public void setName(String name) {
+    this.name.set(name);
+  }
+
   public String getSymbol() {
     return this.symbol.get();
   }
