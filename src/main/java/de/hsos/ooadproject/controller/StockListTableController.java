@@ -1,5 +1,6 @@
 package de.hsos.ooadproject.controller;
 
+import de.hsos.ooadproject.Router;
 import de.hsos.ooadproject.StockManager;
 import de.hsos.ooadproject.User;
 import de.hsos.ooadproject.datamodel.Stock;
@@ -87,6 +88,6 @@ public class StockListTableController implements Initializable {
   }
 
   void showSockDetailsScreen(Stock stock) throws IOException {
-    // Router.getInstance().pushRoute("stockDetails", stock);
+    Router.getInstance().pushRoute("stockDetails", stock);
   }
 }
