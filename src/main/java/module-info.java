@@ -18,4 +18,8 @@ module de.hsos.ooadproject {
   opens de.hsos.ooadproject.datamodel to javafx.fxml;
   exports de.hsos.ooadproject.uimodel;
   opens de.hsos.ooadproject.uimodel to javafx.fxml;
+  exports de.hsos.ooadproject.api;
+  opens de.hsos.ooadproject.api to javafx.fxml;
+  exports de.hsos.ooadproject.interfaces;
+  opens de.hsos.ooadproject.interfaces to javafx.fxml;
 }

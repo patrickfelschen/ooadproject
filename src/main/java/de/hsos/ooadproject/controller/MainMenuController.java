@@ -1,6 +1,7 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
+import de.hsos.ooadproject.interfaces.Routable;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;

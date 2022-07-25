@@ -1,12 +1,12 @@
-package de.hsos.ooadproject;
+package de.hsos.ooadproject.api;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class UserManager {
   public static final List<String> watchListStockIds = new ArrayList<>();
 
-  public User() {
+  public UserManager() {
   }
 
   public List<String> getWatchListStockIds() {

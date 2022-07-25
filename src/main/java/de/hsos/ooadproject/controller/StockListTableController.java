@@ -1,8 +1,8 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
-import de.hsos.ooadproject.StockManager;
-import de.hsos.ooadproject.User;
+import de.hsos.ooadproject.api.StockManager;
+import de.hsos.ooadproject.api.UserManager;
 import de.hsos.ooadproject.datamodel.Stock;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.enums.ButtonType;
@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StockListTableController implements Initializable {
-  final ObservableList<Stock> aktien = FXCollections.observableArrayList();
+  final ObservableList<Stock> stockList = FXCollections.observableArrayList();
   @FXML
   private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
   @FXML
@@ -29,9 +29,9 @@ public class StockListTableController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    User user = new User();
-    StockManager sm = new StockManager();
-    aktien.setAll(sm.getStockList());
+    UserManager userManager = new UserManager();
+    StockManager stockManager = new StockManager();
+    stockList.setAll(stockManager.getStockList());
 
     //s.nameProperty().addListener((observable, oldValue, newValue) -> stockListTable.refresh());
 
@@ -53,7 +53,7 @@ public class StockListTableController implements Initializable {
         btn.setOnAction(e -> {
           Stock data = getTableView().getItems().get(getIndex());
           System.out.println(data);
-          user.addStockToWatchList(data.getSymbol());
+          userManager.addStockToWatchList(data.getSymbol());
         });
       }
 
@@ -84,7 +84,7 @@ public class StockListTableController implements Initializable {
       return row;
     });
 
-    stockListTable.setItems(aktien);
+    stockListTable.setItems(stockList);
   }
 
   void showSockDetailsScreen(Stock stock) throws IOException {

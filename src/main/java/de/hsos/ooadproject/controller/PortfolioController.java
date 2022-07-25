@@ -2,6 +2,7 @@ package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
 import de.hsos.ooadproject.datamodel.Stock;
+import de.hsos.ooadproject.interfaces.Routable;
 import de.hsos.ooadproject.uimodel.PortfolioListItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

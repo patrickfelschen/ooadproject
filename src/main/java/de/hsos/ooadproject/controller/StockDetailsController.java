@@ -2,6 +2,7 @@ package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
 import de.hsos.ooadproject.datamodel.Stock;
+import de.hsos.ooadproject.interfaces.Routable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -11,7 +12,6 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 
 public class StockDetailsController extends Routable {
-
   @FXML
   private Label lbStockName, lbSymbol, lbVortag, lbBid, lbAsk, lbPercent, lbTime, lbPlusMinus;
   @FXML

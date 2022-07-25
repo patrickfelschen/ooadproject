@@ -1,6 +1,6 @@
 package de.hsos.ooadproject;
 
-import de.hsos.ooadproject.controller.Routable;
+import de.hsos.ooadproject.interfaces.Routable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

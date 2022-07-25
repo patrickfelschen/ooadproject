@@ -1,8 +1,8 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
-import de.hsos.ooadproject.StockManager;
-import de.hsos.ooadproject.User;
+import de.hsos.ooadproject.api.StockManager;
+import de.hsos.ooadproject.api.UserManager;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,9 +27,9 @@ public class WatchListTableController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    User user = new User();
+    UserManager userManager = new UserManager();
     StockManager sm = new StockManager();
-    aktien.setAll(sm.getWatchList(user.getWatchListStockIds()));
+    aktien.setAll(sm.getWatchList(userManager.getWatchListStockIds()));
 
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
