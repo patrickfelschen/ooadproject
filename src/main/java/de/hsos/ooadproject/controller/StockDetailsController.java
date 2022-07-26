@@ -1,8 +1,12 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
+import de.hsos.ooadproject.api.StockManager;
 import de.hsos.ooadproject.datamodel.Stock;
 import de.hsos.ooadproject.interfaces.Routable;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -28,6 +32,14 @@ public class StockDetailsController extends Routable {
     this.lbPercent.setText(String.valueOf(stock.getPercent()));
     this.lbPlusMinus.setText(String.valueOf(stock.getPlusMinus()));
     this.lbTime.setText(stock.getTime());
+
+    // Bind listener to properties and update the UI
+    this.stock.vortagProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbVortag.setText(String.valueOf(newValue))));
+    this.stock.askProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbAsk.setText(String.valueOf(newValue))));
+    this.stock.bidProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbBid.setText(String.valueOf(newValue))));
+    this.stock.percentProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbPercent.setText(String.valueOf(newValue))));
+    this.stock.vortagProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbVortag.setText(String.valueOf(newValue))));
+    this.stock.plusMinusProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbPlusMinus.setText(String.valueOf(newValue))));
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
 
