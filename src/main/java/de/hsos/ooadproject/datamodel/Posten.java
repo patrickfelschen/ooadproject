@@ -10,8 +10,8 @@ public class Posten {
   private final IntegerProperty number;
 
   public Posten(Stock stock, int number) {
-    this.stock = new SimpleObjectProperty<Stock>(stock);
-    this.number = new SimpleIntegerProperty(number);
+    this.stock = new SimpleObjectProperty<>(this, "stock", stock);
+    this.number = new SimpleIntegerProperty(this, "number", number);
   }
 
   public ObjectProperty<Stock> stockProperty() {
@@ -39,7 +39,7 @@ public class Posten {
   }
 
   public float getAskValue() {
-    return number.get() * stock.getValue().getAsk();
+    return number.get() * stock.get().getAsk();
   }
 
   @Override

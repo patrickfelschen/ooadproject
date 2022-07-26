@@ -31,29 +31,46 @@ public class PortfolioController extends Routable implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.chartData = FXCollections.observableArrayList();
+
         StockManager stockManager = StockManager.getInstance();
         UserManager userManager = UserManager.getInstance();
         Depot depot = userManager.getDepot();
 
         depot.addPosten(stockManager.getStockList().get(0), 10);
-        depot.addPosten(stockManager.getStockList().get(2), 15);
+        depot.addPosten(stockManager.getStockList().get(1), 342);
+        depot.addPosten(stockManager.getStockList().get(2), 6);
+        depot.addPosten(stockManager.getStockList().get(3), 155);
+        depot.addPosten(stockManager.getStockList().get(4), 105);
+        depot.addPosten(stockManager.getStockList().get(5), 170);
+        depot.addPosten(stockManager.getStockList().get(6), 170);
+        depot.addPosten(stockManager.getStockList().get(7), 456);
+        depot.addPosten(stockManager.getStockList().get(8), 170);
 
-        portfolioValue.setText(String.valueOf(depot.getAskValue()));
+        portfolioValue.setText(String.valueOf(depot.getValue()));
+
+        // Gesamtwert
+        for (Posten p : depot.getPosten()) {
+            p.getStock().askProperty().addListener((observable, oldValue, newValue) -> {
+                portfolioValue.setText(String.valueOf(depot.getValue()));
+            });
+
+            PieChart.Data data = new PieChart.Data(p.getStock().getName(), p.getAskValue() / depot.getValue());
+            data.nameProperty().bind(p.getStock().nameProperty());
+            data.pieValueProperty().bind(p.getStock().askProperty().divide(depot.getValue()));
+            this.chartData.add(data);
+        }
 
         // Chart
-        this.chartData = FXCollections.observableArrayList(
-                new PieChart.Data("Allianz", 6.5F),
-                new PieChart.Data("Apple", 40.0F),
-                new PieChart.Data("Amazon", 53.5F)
-        );
-
-        this.chart.setData(chartData);
+        chart.setData(chartData);
+        this.chart.setAnimated(true);
 
         // List
         listData = FXCollections.observableArrayList(depot.getPosten());
 
         portfolioList.setCellFactory(portfolioListView -> {
             PortfolioListItem item = new PortfolioListItem();
+
             item.setOnMouseClicked(event -> {
                 try {
                     Router.getInstance().pushRoute("stockDetails", item.getItem().getStock());
