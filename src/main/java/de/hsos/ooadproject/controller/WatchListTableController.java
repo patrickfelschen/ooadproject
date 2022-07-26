@@ -4,8 +4,10 @@ import de.hsos.ooadproject.Router;
 import de.hsos.ooadproject.api.StockManager;
 import de.hsos.ooadproject.api.UserManager;
 import de.hsos.ooadproject.datamodel.Stock;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -24,6 +26,8 @@ public class WatchListTableController implements Initializable {
   private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime;
   @FXML
   private TableView<Stock> watchListTable;
+  @FXML
+  private MFXTextField searchField;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -57,6 +61,30 @@ public class WatchListTableController implements Initializable {
     });
 
     watchListTable.setItems(aktien);
+
+    FilteredList<Stock> filteredAktien = new FilteredList<>(aktien);
+
+    this.searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+      filteredAktien.setPredicate(stock -> {
+        if(newValue.isEmpty() || newValue.isBlank()) {
+          return true;
+        }
+
+        String searchKeyword = newValue.toLowerCase();
+
+        if(stock.getName().toLowerCase().contains(searchKeyword)) {
+          return true;
+        }
+        else if(stock.getSymbol().toLowerCase().contains(searchKeyword)) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      });
+    });
+
+    watchListTable.setItems(filteredAktien);
   }
 
   void showSockDetailsScreen(MouseEvent e, Stock stock) throws IOException {
