@@ -1,6 +1,7 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
+import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import de.hsos.ooadproject.interfaces.Routable;
 import javafx.beans.binding.Bindings;
@@ -42,20 +43,13 @@ public class StockDetailsController extends Routable {
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-    series.setName("My portfolio");
+    series.setName("Portfolio");
     //populating the series with data
-    series.getData().add(new XYChart.Data<>("1", 23));
-    series.getData().add(new XYChart.Data<>("2", 14));
-    series.getData().add(new XYChart.Data<>("3", 15));
-    series.getData().add(new XYChart.Data<>("4", 24));
-    series.getData().add(new XYChart.Data<>("5", 34));
-    series.getData().add(new XYChart.Data<>("6", 36));
-    series.getData().add(new XYChart.Data<>("7", 22));
-    series.getData().add(new XYChart.Data<>("8", 45));
-    series.getData().add(new XYChart.Data<>("9", 43));
-    series.getData().add(new XYChart.Data<>("10", 17));
-    series.getData().add(new XYChart.Data<>("11", 29));
-    series.getData().add(new XYChart.Data<>("12", 25));
+    for (HistoryPoint hp : stock.getHistory()) {
+      series.getData().add(new XYChart.Data<>(hp.getDate(), hp.getAsk()));
+    }
+
+    this.lineChart.setAnimated(true);
     this.lineChart.getData().add(series);
   }
 

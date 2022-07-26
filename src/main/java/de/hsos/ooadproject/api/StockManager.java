@@ -1,9 +1,11 @@
 package de.hsos.ooadproject.api;
 
+import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -25,19 +27,29 @@ public class StockManager {
   );
 
   private StockManager() {
+    // Random Verlauf generieren
+    List<HistoryPoint> hpl = new ArrayList<>();
+    Random rand = new Random();
+    float val = 1;
+    for (int i = 0; i < 200; i++) {
+      val += rand.nextFloat(-1, 1);
+      hpl.add(new HistoryPoint(i + ". Tag", val));
+    }
+
+    // Random Werte setzen
     Thread updateThread = new Thread(() -> {
       while (true) {
         try {
           Platform.runLater(() -> {
-            Random rand;
+            Calendar cal = Calendar.getInstance();
             for (Stock s : stockList) {
-              rand = new Random();
+              s.addAllHistoryPoint(hpl);
               s.setVortag(s.getVortag() + rand.nextFloat(0, 1));
               s.setBid(s.getBid() + rand.nextFloat(0, 1));
               s.setAsk(s.getAsk() + rand.nextFloat(0, 1));
               s.setPercent(s.getPercent() + rand.nextFloat(0, 1));
               s.setPlusMinus(s.getPlusMinus() + rand.nextFloat(0, 1));
-              s.setTime("00:00:00");
+              s.setTime(cal.getTime().toString());
             }
           });
           Thread.sleep(5000);
