@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class StockManager {
+  private static StockManager singleInstance = null;
   public static List<Stock> stockList = new ArrayList<>(
           List.of(
                   new Stock("1&1", "DE0005545503", 0, 0, 0, 0, 0, "00:00:00"),
@@ -22,7 +23,7 @@ public class StockManager {
           )
   );
 
-  public StockManager() {
+  private StockManager() {
     Thread updateThread = new Thread(() -> {
       while (true) {
         try {
@@ -36,7 +37,7 @@ public class StockManager {
             s.setPlusMinus(rand.nextFloat() * 10);
             s.setTime("00:00:00");
           }
-          Thread.sleep(1000);
+          Thread.sleep(5000);
         } catch (InterruptedException e) {
           throw new RuntimeException(e);
         }
@@ -44,6 +45,14 @@ public class StockManager {
     });
     updateThread.setDaemon(true);
     updateThread.start();
+  }
+
+  public static StockManager getInstance() {
+    if (singleInstance == null) {
+      singleInstance = new StockManager();
+    }
+
+    return singleInstance;
   }
 
   public List<Stock> getStockList() {
