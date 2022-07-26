@@ -32,11 +32,11 @@ public class StockManager {
             Random rand;
             for (Stock s : stockList) {
               rand = new Random();
-              s.setVortag(s.getVortag() + rand.nextFloat(-1, 1));
-              s.setBid(s.getBid() + rand.nextFloat(-1, 1));
-              s.setAsk(s.getAsk() + rand.nextFloat(-1, 1));
-              s.setPercent(s.getPercent() + rand.nextFloat(-1, 1));
-              s.setPlusMinus(s.getPlusMinus() + rand.nextFloat(-1, 1));
+              s.setVortag(s.getVortag() + rand.nextFloat(0, 1));
+              s.setBid(s.getBid() + rand.nextFloat(0, 1));
+              s.setAsk(s.getAsk() + rand.nextFloat(0, 1));
+              s.setPercent(s.getPercent() + rand.nextFloat(0, 1));
+              s.setPlusMinus(s.getPlusMinus() + rand.nextFloat(0, 1));
               s.setTime("00:00:00");
             }
           });
