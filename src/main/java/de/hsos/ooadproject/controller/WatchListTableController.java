@@ -27,9 +27,9 @@ public class WatchListTableController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    UserManager userManager = new UserManager();
-    StockManager sm = new StockManager();
-    aktien.setAll(sm.getWatchList(userManager.getWatchListStockIds()));
+    UserManager userManager = UserManager.getInstance();
+    StockManager stockManager = StockManager.getInstance();
+    aktien.setAll(stockManager.getWatchList(userManager.getWatchListStockIds()));
 
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));

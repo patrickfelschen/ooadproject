@@ -122,4 +122,33 @@ public class Stock {
     return this.time.get();
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Stock stock = (Stock) o;
+
+    if (!name.equals(stock.name)) return false;
+    if (!symbol.equals(stock.symbol)) return false;
+    if (!vortag.equals(stock.vortag)) return false;
+    if (!bid.equals(stock.bid)) return false;
+    if (!ask.equals(stock.ask)) return false;
+    if (!percent.equals(stock.percent)) return false;
+    if (!plusMinus.equals(stock.plusMinus)) return false;
+    return time.equals(stock.time);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = name.hashCode();
+    result = 31 * result + symbol.hashCode();
+    result = 31 * result + vortag.hashCode();
+    result = 31 * result + bid.hashCode();
+    result = 31 * result + ask.hashCode();
+    result = 31 * result + percent.hashCode();
+    result = 31 * result + plusMinus.hashCode();
+    result = 31 * result + time.hashCode();
+    return result;
+  }
 }

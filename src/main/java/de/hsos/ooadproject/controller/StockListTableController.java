@@ -29,11 +29,9 @@ public class StockListTableController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    UserManager userManager = new UserManager();
-    StockManager stockManager = new StockManager();
+    UserManager userManager = UserManager.getInstance();
+    StockManager stockManager = StockManager.getInstance();
     stockList.setAll(stockManager.getStockList());
-
-    //s.nameProperty().addListener((observable, oldValue, newValue) -> stockListTable.refresh());
 
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
