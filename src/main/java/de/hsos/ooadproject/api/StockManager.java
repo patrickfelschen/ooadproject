@@ -46,7 +46,7 @@ public class StockManager {
         }
       }
     });
-    //updateThread.setDaemon(true);
+    updateThread.setDaemon(true);
     updateThread.start();
   }
 
