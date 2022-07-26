@@ -25,6 +25,8 @@ public class UserManager {
   }
 
   public void addStockToWatchList(String stockId) {
+    if(watchListStockIds.contains(stockId)) { return; }
+
     watchListStockIds.add(stockId);
   }
 

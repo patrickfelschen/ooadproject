@@ -4,12 +4,15 @@ import de.hsos.ooadproject.Router;
 import de.hsos.ooadproject.api.StockManager;
 import de.hsos.ooadproject.api.UserManager;
 import de.hsos.ooadproject.datamodel.Stock;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.enums.ButtonType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -23,7 +26,7 @@ import java.util.ResourceBundle;
 public class WatchListTableController implements Initializable {
   final ObservableList<Stock> aktien = FXCollections.observableArrayList();
   @FXML
-  private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime;
+  private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
   @FXML
   private TableView<Stock> watchListTable;
   @FXML
@@ -43,6 +46,31 @@ public class WatchListTableController implements Initializable {
     colPercent.setCellValueFactory(new PropertyValueFactory<>("percent"));
     colPlusMinus.setCellValueFactory(new PropertyValueFactory<>("plusMinus"));
     colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+    colAction.setCellFactory(tc -> new TableCell<>() {
+      private final MFXButton btn = new MFXButton("✖");
+
+      {
+        btn.setStyle("-fx-background-color: #eb4034");
+        btn.setButtonType(ButtonType.RAISED);
+        btn.setOnAction(e -> {
+          Stock data = getTableView().getItems().get(getIndex());
+          System.out.println(data);
+          userManager.removeStockFromWatchList(data.getSymbol());
+          aktien.setAll(stockManager.getWatchList(userManager.getWatchListStockIds()));
+        });
+      }
+
+      @Override
+      protected void updateItem(String item, boolean empty) {
+        super.updateItem(item, empty);
+        if (empty) {
+          setGraphic(null);
+        } else {
+          setGraphic(btn);
+        }
+      }
+    });
 
     watchListTable.setRowFactory(tv -> {
       TableRow<Stock> row = new TableRow<>();
