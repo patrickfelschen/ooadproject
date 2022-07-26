@@ -66,6 +66,7 @@ public class StockDetailsController extends Routable {
 
   @Override
   public void setData(Object data) {
+    if (data == null) return;
     setStock((Stock) data);
   }
 }
