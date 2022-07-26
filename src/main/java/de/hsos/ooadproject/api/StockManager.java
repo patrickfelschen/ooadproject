@@ -1,6 +1,7 @@
 package de.hsos.ooadproject.api;
 
 import de.hsos.ooadproject.datamodel.Stock;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +28,18 @@ public class StockManager {
     Thread updateThread = new Thread(() -> {
       while (true) {
         try {
-          Random rand;
-          for (Stock s : stockList) {
-            rand = new Random();
-            s.setVortag(rand.nextFloat() * 10);
-            s.setBid(rand.nextFloat() * 10);
-            s.setAsk(rand.nextFloat() * 10);
-            s.setPercent(rand.nextFloat() * 10);
-            s.setPlusMinus(rand.nextFloat() * 10);
-            s.setTime("00:00:00");
-          }
+          Platform.runLater(() -> {
+            Random rand;
+            for (Stock s : stockList) {
+              rand = new Random();
+              s.setVortag(s.getVortag() + rand.nextFloat(-1, 1));
+              s.setBid(s.getBid() + rand.nextFloat(-1, 1));
+              s.setAsk(s.getAsk() + rand.nextFloat(-1, 1));
+              s.setPercent(s.getPercent() + rand.nextFloat(-1, 1));
+              s.setPlusMinus(s.getPlusMinus() + rand.nextFloat(-1, 1));
+              s.setTime("00:00:00");
+            }
+          });
           Thread.sleep(5000);
         } catch (InterruptedException e) {
           throw new RuntimeException(e);
