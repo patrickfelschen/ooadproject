@@ -5,6 +5,7 @@ import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import de.hsos.ooadproject.interfaces.Routable;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -45,11 +46,18 @@ public class StockDetailsController extends Routable {
 
     series.setName("Portfolio");
     //populating the series with data
-    for (HistoryPoint hp : stock.getHistory()) {
-      series.getData().add(new XYChart.Data<>(hp.getDate(), hp.getAsk()));
+    for(int i = 0; i < stock.getHistory().size(); i++) {
+      series.getData().add(new XYChart.Data<>(String.valueOf(i), stock.getHistory().get(i).getAsk()));
     }
 
-    this.lineChart.setAnimated(true);
+    // Live chart data on ask-pice changes
+    stock.getHistory().addListener((ListChangeListener<HistoryPoint>) c -> {
+      for(int i = 0; i < stock.getHistory().size(); i++) {
+        series.getData().add(new XYChart.Data<>(String.valueOf(i), stock.getHistory().get(i).getAsk()));
+      }
+    });
+
+    this.lineChart.setAnimated(false);
     this.lineChart.getData().add(series);
   }
 

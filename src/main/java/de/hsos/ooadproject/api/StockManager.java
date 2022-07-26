@@ -35,6 +35,9 @@ public class StockManager {
       val += rand.nextFloat(-1, 1);
       hpl.add(new HistoryPoint(i + ". Tag", val));
     }
+    for(Stock s: stockList) {
+      s.addAllHistoryPoint(hpl);
+    }
 
     // Random Werte setzen
     Thread updateThread = new Thread(() -> {
@@ -43,7 +46,7 @@ public class StockManager {
           Platform.runLater(() -> {
             Calendar cal = Calendar.getInstance();
             for (Stock s : stockList) {
-              s.addAllHistoryPoint(hpl);
+              //s.addAllHistoryPoint(hpl);
               s.setVortag(s.getVortag() + rand.nextFloat(0, 1));
               s.setBid(s.getBid() + rand.nextFloat(0, 1));
               s.setAsk(s.getAsk() + rand.nextFloat(0, 1));

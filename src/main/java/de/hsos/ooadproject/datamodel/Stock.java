@@ -4,8 +4,10 @@ import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Stock {
@@ -18,7 +20,7 @@ public class Stock {
   private final FloatProperty plusMinus;
   private final StringProperty time;
 
-  private final List<HistoryPoint> history;
+  private final ObservableList<HistoryPoint> history;
 
   public Stock(String name, String symbol, float vortag, float bid, float ask, float percent, float plusMinus, String time) {
     this.name = new SimpleStringProperty(name);
@@ -29,10 +31,13 @@ public class Stock {
     this.percent = new SimpleFloatProperty(percent);
     this.plusMinus = new SimpleFloatProperty(plusMinus);
     this.time = new SimpleStringProperty(time);
-    this.history = new ArrayList<>();
+    this.history = FXCollections.observableArrayList();
+    this.ask.addListener((observable, oldValue, newValue) -> {
+      addHistoryPoint(new HistoryPoint(new Date().toString(), newValue.floatValue()));
+    });
   }
 
-  public List<HistoryPoint> getHistory() {
+  public ObservableList<HistoryPoint> getHistory() {
     return history;
   }
 
