@@ -1,12 +1,9 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
-import de.hsos.ooadproject.api.StockManager;
 import de.hsos.ooadproject.datamodel.Stock;
 import de.hsos.ooadproject.interfaces.Routable;
-import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -33,13 +30,15 @@ public class StockDetailsController extends Routable {
     this.lbPlusMinus.setText(String.valueOf(stock.getPlusMinus()));
     this.lbTime.setText(stock.getTime());
 
-    // Bind listener to properties and update the UI
-    this.stock.vortagProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbVortag.setText(String.valueOf(newValue))));
-    this.stock.askProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbAsk.setText(String.valueOf(newValue))));
-    this.stock.bidProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbBid.setText(String.valueOf(newValue))));
-    this.stock.percentProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbPercent.setText(String.valueOf(newValue))));
-    this.stock.vortagProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbVortag.setText(String.valueOf(newValue))));
-    this.stock.plusMinusProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbPlusMinus.setText(String.valueOf(newValue))));
+    // Bind to properties and update the UI
+    lbStockName.textProperty().bind(Bindings.convert(stock.nameProperty()));
+    lbSymbol.textProperty().bind(Bindings.convert(stock.symbolProperty()));
+    lbVortag.textProperty().bind(Bindings.convert(stock.vortagProperty()));
+    lbAsk.textProperty().bind(Bindings.convert(stock.askProperty()));
+    lbBid.textProperty().bind(Bindings.convert(stock.bidProperty()));
+    lbPercent.textProperty().bind(Bindings.convert(stock.percentProperty()));
+    lbPlusMinus.textProperty().bind(Bindings.convert(stock.plusMinusProperty()));
+    lbTime.textProperty().bind(Bindings.convert(stock.timeProperty()));
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
 
