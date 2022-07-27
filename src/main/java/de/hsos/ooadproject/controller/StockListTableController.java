@@ -35,7 +35,7 @@ public class StockListTableController implements Initializable {
   private MFXTextField searchField;
 
   /**
-   * Erzeugt Tabelle und füllt sie mit Daten.
+   * Erzeugt Tabelle und füllt sie mit Daten aus StockManager.
    *
    * @param location  The location used to resolve relative paths for the root object, or
    *                  {@code null} if the location is not known.
@@ -68,7 +68,7 @@ public class StockListTableController implements Initializable {
         btn.setOnAction(e -> {
           Stock data = getTableView().getItems().get(getIndex());
           //System.out.println(data);
-          userManager.addStockToWatchList(data.getSymbol());
+          userManager.addStockToWatchList(data.getSymbol()); // Fügt Watchlist im UserManager das Symbol der Aktie hinzu.
         });
       }
 
