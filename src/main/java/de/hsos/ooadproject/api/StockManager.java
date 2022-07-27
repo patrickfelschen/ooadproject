@@ -71,7 +71,7 @@ public class StockManager {
   }
 
   /**
-   * Zu umseztung des Singleton Patterns.
+   * Zur Umsetzung des Singleton Patterns.
    *
    * @return Instanz des StockManagers.
    */
