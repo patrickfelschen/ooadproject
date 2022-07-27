@@ -1,9 +1,11 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
+import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import de.hsos.ooadproject.interfaces.Routable;
-import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -30,30 +32,31 @@ public class StockDetailsController extends Routable {
     this.lbPlusMinus.setText(String.valueOf(stock.getPlusMinus()));
     this.lbTime.setText(stock.getTime());
 
-    // Bind listener to properties and update the UI
-    this.stock.vortagProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbVortag.setText(String.valueOf(newValue))));
-    this.stock.askProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbAsk.setText(String.valueOf(newValue))));
-    this.stock.bidProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbBid.setText(String.valueOf(newValue))));
-    this.stock.percentProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbPercent.setText(String.valueOf(newValue))));
-    this.stock.vortagProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbVortag.setText(String.valueOf(newValue))));
-    this.stock.plusMinusProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> lbPlusMinus.setText(String.valueOf(newValue))));
+    // Bind to properties and update the UI
+    lbStockName.textProperty().bind(Bindings.convert(stock.nameProperty()));
+    lbSymbol.textProperty().bind(Bindings.convert(stock.symbolProperty()));
+    lbVortag.textProperty().bind(Bindings.convert(stock.vortagProperty()));
+    lbAsk.textProperty().bind(Bindings.convert(stock.askProperty()));
+    lbBid.textProperty().bind(Bindings.convert(stock.bidProperty()));
+    lbPercent.textProperty().bind(Bindings.convert(stock.percentProperty()));
+    lbPlusMinus.textProperty().bind(Bindings.convert(stock.plusMinusProperty()));
+    lbTime.textProperty().bind(Bindings.convert(stock.timeProperty()));
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-    series.setName("My portfolio");
+    series.setName("Portfolio");
     //populating the series with data
-    series.getData().add(new XYChart.Data<>("1", 23));
-    series.getData().add(new XYChart.Data<>("2", 14));
-    series.getData().add(new XYChart.Data<>("3", 15));
-    series.getData().add(new XYChart.Data<>("4", 24));
-    series.getData().add(new XYChart.Data<>("5", 34));
-    series.getData().add(new XYChart.Data<>("6", 36));
-    series.getData().add(new XYChart.Data<>("7", 22));
-    series.getData().add(new XYChart.Data<>("8", 45));
-    series.getData().add(new XYChart.Data<>("9", 43));
-    series.getData().add(new XYChart.Data<>("10", 17));
-    series.getData().add(new XYChart.Data<>("11", 29));
-    series.getData().add(new XYChart.Data<>("12", 25));
+    for(int i = 0; i < stock.getHistory().size(); i++) {
+      series.getData().add(new XYChart.Data<>(String.valueOf(i), stock.getHistory().get(i).getAsk()));
+    }
+
+    // Live chart data on ask-pice changes
+    stock.getHistory().addListener((ListChangeListener<HistoryPoint>) c -> {
+      int lastIndex = stock.getHistory().size() - 1;
+      series.getData().add(new XYChart.Data<>(String.valueOf(lastIndex), stock.getHistory().get(lastIndex).getAsk()));
+    });
+
+    this.lineChart.setAnimated(true);
     this.lineChart.getData().add(series);
   }
 
@@ -64,6 +67,7 @@ public class StockDetailsController extends Routable {
 
   @Override
   public void setData(Object data) {
+    if (data == null) return;
     setStock((Stock) data);
   }
 

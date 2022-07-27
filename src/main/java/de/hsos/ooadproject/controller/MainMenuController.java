@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 
 public class MainMenuController extends Routable {
-
   public void showWatchList(ActionEvent e) throws IOException {
     Router.getInstance().pushRoute("watchList");
   }

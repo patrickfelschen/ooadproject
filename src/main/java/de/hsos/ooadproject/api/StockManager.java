@@ -1,8 +1,11 @@
 package de.hsos.ooadproject.api;
 
+import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -24,19 +27,33 @@ public class StockManager {
   );
 
   private StockManager() {
+    // Random Verlauf generieren
+    List<HistoryPoint> hpl = new ArrayList<>();
+    Random rand = new Random();
+    float val = 1;
+    for (int i = 0; i < 200; i++) {
+      val += rand.nextFloat(-1, 1);
+      hpl.add(new HistoryPoint(i + ". Tag", val));
+    }
+    for(Stock s: stockList) {
+      s.addAllHistoryPoint(hpl);
+    }
+    // Random Werte setzen
     Thread updateThread = new Thread(() -> {
       while (true) {
         try {
-          Random rand;
-          for (Stock s : stockList) {
-            rand = new Random();
-            s.setVortag(rand.nextFloat() * 10);
-            s.setBid(rand.nextFloat() * 10);
-            s.setAsk(rand.nextFloat() * 10);
-            s.setPercent(rand.nextFloat() * 10);
-            s.setPlusMinus(rand.nextFloat() * 10);
-            s.setTime("00:00:00");
-          }
+          Platform.runLater(() -> {
+            Calendar cal = Calendar.getInstance();
+            for (Stock s : stockList) {
+              //s.addAllHistoryPoint(hpl);
+              s.setVortag(s.getVortag() + rand.nextFloat(0, 1));
+              s.setBid(s.getBid() + rand.nextFloat(0, 1));
+              s.setAsk(s.getAsk() + rand.nextFloat(0, 1));
+              s.setPercent(s.getPercent() + rand.nextFloat(0, 1));
+              s.setPlusMinus(s.getPlusMinus() + rand.nextFloat(0, 1));
+              s.setTime(cal.getTime().toString());
+            }
+          });
           Thread.sleep(5000);
         } catch (InterruptedException e) {
           throw new RuntimeException(e);
@@ -51,7 +68,6 @@ public class StockManager {
     if (singleInstance == null) {
       singleInstance = new StockManager();
     }
-
     return singleInstance;
   }
 

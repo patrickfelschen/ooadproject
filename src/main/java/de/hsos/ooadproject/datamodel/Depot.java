@@ -7,7 +7,7 @@ public class Depot {
   private final List<Posten> posten;
 
   public Depot() {
-    this.posten = new ArrayList<>();
+    this.posten = new ArrayList<>(); //SimpleListProperty<>(this, "posten"); // ArrayList<>();
   }
 
   public Posten getPosten(Stock stock) {
@@ -23,7 +23,7 @@ public class Depot {
     return posten;
   }
 
-  public float getAskValue() {
+  public float getValue() {
     float val = 0;
     for (Posten p : this.posten) {
       val += p.getAskValue();
@@ -43,7 +43,6 @@ public class Depot {
         return;
       }
     }
-
     // Posten existiert nicht, Posten neu anlegen
     this.posten.add(new Posten(stock, number));
   }
@@ -69,6 +68,5 @@ public class Depot {
         break;
       }
     }
-
   }
 }
