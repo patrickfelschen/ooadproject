@@ -38,7 +38,6 @@ public class StockManager {
     for(Stock s: stockList) {
       s.addAllHistoryPoint(hpl);
     }
-
     // Random Werte setzen
     Thread updateThread = new Thread(() -> {
       while (true) {
@@ -69,7 +68,6 @@ public class StockManager {
     if (singleInstance == null) {
       singleInstance = new StockManager();
     }
-
     return singleInstance;
   }
 

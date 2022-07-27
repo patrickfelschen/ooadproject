@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Stock {
+
   private final StringProperty name;
   private final StringProperty symbol;
   private final FloatProperty vortag;
