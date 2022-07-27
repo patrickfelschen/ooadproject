@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * StockListController implementiert die Logik der Tabelle zur Übersicht aller Aktien.
+ */
 public class StockListTableController implements Initializable {
   final ObservableList<Stock> stockList = FXCollections.observableArrayList();
   @FXML
@@ -31,12 +34,21 @@ public class StockListTableController implements Initializable {
   @FXML
   private MFXTextField searchField;
 
+  /**
+   * Erzeugt Tabelle und füllt sie mit Daten.
+   *
+   * @param location  The location used to resolve relative paths for the root object, or
+   *                  {@code null} if the location is not known.
+   * @param resources The resources used to localize the root object, or {@code null} if
+   *                  the root object was not localized.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     UserManager userManager = UserManager.getInstance();
     StockManager stockManager = StockManager.getInstance();
     stockList.setAll(stockManager.getStockList());
 
+    // Erstellen von Tabelleneinträgen (spaltenweise). Einträge sind über Übergebene Properties an Felder aus Stock gebunden.
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
     colVortag.setCellValueFactory(new PropertyValueFactory<>("vortag"));
@@ -46,6 +58,7 @@ public class StockListTableController implements Initializable {
     colPlusMinus.setCellValueFactory(new PropertyValueFactory<>("plusMinus"));
     colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
+    // Erstellen eines Buttons um Aktie zur Watchlist hinzuzufügen.
     colAction.setCellFactory(tc -> new TableCell<>() {
       private final MFXButton btn = new MFXButton("★");
 
@@ -70,6 +83,7 @@ public class StockListTableController implements Initializable {
       }
     });
 
+    // Ruft beim anklicken einer Reihe die Detailübersicht der Aktie auf.
     stockListTable.setRowFactory(tv -> {
       TableRow<Stock> row = new TableRow<>();
       row.setOnMouseClicked(event -> {
@@ -77,7 +91,7 @@ public class StockListTableController implements Initializable {
           Stock rowData = row.getItem();
           //System.out.println(rowData.getName());
           try {
-            showSockDetailsScreen(rowData);
+            showStockDetailScreen(rowData);
           } catch (IOException e) {
             throw new RuntimeException(e);
           }
@@ -86,6 +100,7 @@ public class StockListTableController implements Initializable {
       return row;
     });
 
+    // Filtern der List nach eigegebenem Suchwort.
     FilteredList<Stock> filteredStockList = new FilteredList<>(stockList);
 
     this.searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -106,7 +121,7 @@ public class StockListTableController implements Initializable {
 
   }
 
-  void showSockDetailsScreen(Stock stock) throws IOException {
+  void showStockDetailScreen(Stock stock) throws IOException {
     Router.getInstance().pushRoute("stockDetails", stock);
   }
 }
