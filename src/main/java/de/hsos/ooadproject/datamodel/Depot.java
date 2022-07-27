@@ -10,7 +10,16 @@ public class Depot {
     this.posten = new ArrayList<>();
   }
 
-  public List<Posten> getPosten() {
+  public Posten getPosten(Stock stock) {
+    for (Posten p1 : posten) {
+      if (p1.getStock().equals(stock)) {
+        return p1;
+      }
+    }
+    return new Posten(new Stock("", "", 0, 0, 0, 0, 0, ""), 0);
+  }
+
+  public List<Posten> getAllPosten() {
     return posten;
   }
 

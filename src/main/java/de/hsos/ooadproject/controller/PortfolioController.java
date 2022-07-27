@@ -50,7 +50,7 @@ public class PortfolioController extends Routable implements Initializable {
         this.chart.setData(chartData);
 
         // List
-        listData = FXCollections.observableArrayList(depot.getPosten());
+        listData = FXCollections.observableArrayList(depot.getAllPosten());
 
         portfolioList.setCellFactory(portfolioListView -> {
             PortfolioListItem item = new PortfolioListItem();

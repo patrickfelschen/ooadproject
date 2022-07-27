@@ -25,6 +25,8 @@ public class Router {
     this.routes.put("stockList", "stock-list-view.fxml");
     this.routes.put("portfolio", "portfolio-view.fxml");
     this.routes.put("stockDetails", "stock-details-view.fxml");
+    this.routes.put("stockBuy", "stock-buy-view.fxml");
+    this.routes.put("stockSell", "stock-sell-view.fxml");
   }
 
   public static void bind(Stage primaryStage) throws IOException {

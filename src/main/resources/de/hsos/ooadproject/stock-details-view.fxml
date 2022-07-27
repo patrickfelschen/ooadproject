@@ -58,10 +58,10 @@
             </HBox>
         </AnchorPane>
         <AnchorPane maxWidth="250.0" minHeight="0.0" minWidth="250.0" prefHeight="250.0" prefWidth="250.0">
-            <MFXButton buttonType="RAISED" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0"
-                       prefWidth="76.0" style="-fx-background-color: #496F22;" text="Kaufen" textFill="WHITE"
-                       AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="100.0"/>
-            <MFXButton buttonType="RAISED" layoutX="121.0" layoutY="355.0" mnemonicParsing="false"
+            <MFXButton buttonType="RAISED" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" onAction="#stockBuy"
+                       prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #496F22;" text="Kaufen"
+                       textFill="WHITE" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="100.0"/>
+            <MFXButton buttonType="RAISED" layoutX="121.0" layoutY="355.0" mnemonicParsing="false" onAction="#stockSell"
                        style="-fx-background-color: #B54138;" text="Verkaufen" textFill="WHITE"
                        AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
             <Label fx:id="lbStockName" alignment="CENTER" layoutX="20.0" layoutY="14.0" text="Aktie"

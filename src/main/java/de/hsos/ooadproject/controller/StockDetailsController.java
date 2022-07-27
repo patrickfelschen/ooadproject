@@ -1,12 +1,9 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
-import de.hsos.ooadproject.api.StockManager;
 import de.hsos.ooadproject.datamodel.Stock;
 import de.hsos.ooadproject.interfaces.Routable;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -68,5 +65,13 @@ public class StockDetailsController extends Routable {
   @Override
   public void setData(Object data) {
     setStock((Stock) data);
+  }
+
+  public void stockBuy(ActionEvent actionEvent) throws IOException {
+    Router.getInstance().pushRoute("stockBuy", this.stock);
+  }
+
+  public void stockSell(ActionEvent actionEvent) throws IOException {
+    Router.getInstance().pushRoute("stockSell", this.stock);
   }
 }
