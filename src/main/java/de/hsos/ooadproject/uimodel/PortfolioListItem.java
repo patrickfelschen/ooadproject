@@ -16,7 +16,7 @@ import java.io.IOException;
 public class PortfolioListItem extends ListCell<Posten> {
   private final Depot depot;
   @FXML
-  private Label nameLabel, symbolLabel, latestPrice, latestPriceValue, amountInEUR, amountInEURValue, amountInPercent, amountInPercentValue;
+  private Label nameLabel, symbolLabel, countValue, latestPriceValue, amountInEURValue, amountInPercentValue;
   @FXML
   private GridPane gridPane;
   private FXMLLoader loader;
@@ -61,6 +61,7 @@ public class PortfolioListItem extends ListCell<Posten> {
 
       nameLabel.textProperty().bind(Bindings.convert(posten.getStock().nameProperty()));
       symbolLabel.textProperty().bind(Bindings.convert(posten.getStock().symbolProperty()));
+      countValue.textProperty().bind(Bindings.convert(posten.numberProperty()));
 
       posten.getStock().askProperty().addListener((observable, oldValue, newValue) -> {
         float sumVal = newValue.floatValue() * posten.getNumber();
