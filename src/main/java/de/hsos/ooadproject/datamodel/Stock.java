@@ -93,34 +93,6 @@ public class Stock {
     return this.name.get();
   }
 
-  public void setSymbol(String symbol) {
-    this.symbol.set(symbol);
-  }
-
-  public void setVortag(float vortag) {
-    this.vortag.set(vortag);
-  }
-
-  public void setBid(float bid) {
-    this.bid.set(bid);
-  }
-
-  public void setAsk(float ask) {
-    this.ask.set(ask);
-  }
-
-  public void setPercent(float percent) {
-    this.percent.set(percent);
-  }
-
-  public void setPlusMinus(float plusMinus) {
-    this.plusMinus.set(plusMinus);
-  }
-
-  public void setTime(String time) {
-    this.time.set(time);
-  }
-
   public void setName(String name) {
     this.name.set(name);
   }
@@ -129,28 +101,56 @@ public class Stock {
     return this.symbol.get();
   }
 
+  public void setSymbol(String symbol) {
+    this.symbol.set(symbol);
+  }
+
   public float getVortag() {
     return this.vortag.get();
+  }
+
+  public void setVortag(float vortag) {
+    this.vortag.set(vortag);
   }
 
   public float getBid() {
     return this.bid.get();
   }
 
+  public void setBid(float bid) {
+    this.bid.set(bid);
+  }
+
   public float getAsk() {
     return this.ask.get();
+  }
+
+  public void setAsk(float ask) {
+    this.ask.set(ask);
   }
 
   public float getPercent() {
     return this.percent.get();
   }
 
+  public void setPercent(float percent) {
+    this.percent.set(percent);
+  }
+
   public float getPlusMinus() {
     return this.plusMinus.get();
   }
 
+  public void setPlusMinus(float plusMinus) {
+    this.plusMinus.set(plusMinus);
+  }
+
   public String getTime() {
     return this.time.get();
+  }
+
+  public void setTime(String time) {
+    this.time.set(time);
   }
 
   @Override

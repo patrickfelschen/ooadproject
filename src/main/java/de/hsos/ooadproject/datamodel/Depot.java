@@ -65,7 +65,8 @@ public class Depot {
 
   /**
    * Entfernt oder verringert die Anzahl an Aktien in einem Posten.
-   * @param stock Zu entfernende oder verringernde Aktie.
+   *
+   * @param stock  Zu entfernende oder verringernde Aktie.
    * @param number Anzahl der Aktien.
    */
   public void removePosten(Stock stock, int number) {

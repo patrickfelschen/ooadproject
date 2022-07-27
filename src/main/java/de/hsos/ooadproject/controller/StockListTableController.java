@@ -1,29 +1,25 @@
 package de.hsos.ooadproject.controller;
 
-import de.hsos.ooadproject.MainApp;
 import de.hsos.ooadproject.Router;
 import de.hsos.ooadproject.api.StockManager;
 import de.hsos.ooadproject.api.UserManager;
 import de.hsos.ooadproject.datamodel.Stock;
-import de.hsos.ooadproject.interfaces.Routable;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.enums.ButtonType;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class StockListTableController implements Initializable {
@@ -58,7 +54,7 @@ public class StockListTableController implements Initializable {
         btn.setButtonType(ButtonType.RAISED);
         btn.setOnAction(e -> {
           Stock data = getTableView().getItems().get(getIndex());
-          System.out.println(data);
+          //System.out.println(data);
           userManager.addStockToWatchList(data.getSymbol());
         });
       }
@@ -79,7 +75,7 @@ public class StockListTableController implements Initializable {
       row.setOnMouseClicked(event -> {
         if (!row.isEmpty()) {
           Stock rowData = row.getItem();
-          System.out.println(rowData.getName());
+          //System.out.println(rowData.getName());
           try {
             showSockDetailsScreen(rowData);
           } catch (IOException e) {
@@ -94,21 +90,15 @@ public class StockListTableController implements Initializable {
 
     this.searchField.textProperty().addListener((observable, oldValue, newValue) -> {
       filteredStockList.setPredicate(stock -> {
-        if(newValue.isEmpty() || newValue.isBlank()) {
+        if (newValue.isEmpty() || newValue.isBlank()) {
           return true;
         }
 
         String searchKeyword = newValue.toLowerCase();
 
-        if(stock.getName().toLowerCase().contains(searchKeyword)) {
+        if (stock.getName().toLowerCase().contains(searchKeyword)) {
           return true;
-        }
-        else if(stock.getSymbol().toLowerCase().contains(searchKeyword)) {
-          return true;
-        }
-        else {
-          return false;
-        }
+        } else return stock.getSymbol().toLowerCase().contains(searchKeyword);
       });
     });
 

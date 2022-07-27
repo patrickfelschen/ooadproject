@@ -9,8 +9,8 @@ import java.util.List;
  * UserManager stellt die Werte eines Nutzers dar.
  */
 public class UserManager {
-  public static Depot depot = new Depot();
   public static final List<String> watchListStockIds = new ArrayList<>();
+  public static Depot depot = new Depot();
   private static UserManager singleInstance = null;
 
   private UserManager() {

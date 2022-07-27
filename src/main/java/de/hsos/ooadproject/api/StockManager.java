@@ -16,7 +16,6 @@ import java.util.Random;
  * StockManager stellt eine künstliche API Schnittstelle dar.
  */
 public class StockManager {
-  private static StockManager singleInstance = null;
   public static List<Stock> stockList = new ArrayList<>(
           List.of(
                   new Stock("1&1", "DE0005545503", 0, 0, 0, 0, 0, "00:00:00"),
@@ -31,6 +30,7 @@ public class StockManager {
                   new Stock("Allianz", "DE0008404005", 0, 0, 0, 0, 0, "00:00:00")
           )
   );
+  private static StockManager singleInstance = null;
 
   /**
    * Füllt den Preisverlauf der Aktien mit Daten und ändert in einem Thread kontinuierlich die Werte der Aktien mit zufälligen Daten.
@@ -97,7 +97,6 @@ public class StockManager {
     float val = 1;
     for (LocalDateTime d : datesInRange) {
       String date = dateFormatter.format(d);
-      System.out.println(date);
       val += rand.nextFloat(-1, 1);
       historyPoints.add(new HistoryPoint(date, val));
     }

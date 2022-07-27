@@ -55,7 +55,7 @@ public class WatchListTableController implements Initializable {
         btn.setButtonType(ButtonType.RAISED);
         btn.setOnAction(e -> {
           Stock data = getTableView().getItems().get(getIndex());
-          System.out.println(data);
+          //System.out.println(data);
           userManager.removeStockFromWatchList(data.getSymbol());
           aktien.setAll(stockManager.getWatchList(userManager.getWatchListStockIds()));
         });
@@ -77,7 +77,7 @@ public class WatchListTableController implements Initializable {
       row.setOnMouseClicked(event -> {
         if (!row.isEmpty()) {
           Stock rowData = row.getItem();
-          System.out.println(rowData.getName());
+          //System.out.println(rowData.getName());
           try {
             showSockDetailsScreen(event, rowData);
           } catch (IOException e) {
@@ -94,21 +94,15 @@ public class WatchListTableController implements Initializable {
 
     this.searchField.textProperty().addListener((observable, oldValue, newValue) -> {
       filteredAktien.setPredicate(stock -> {
-        if(newValue.isEmpty() || newValue.isBlank()) {
+        if (newValue.isEmpty() || newValue.isBlank()) {
           return true;
         }
 
         String searchKeyword = newValue.toLowerCase();
 
-        if(stock.getName().toLowerCase().contains(searchKeyword)) {
+        if (stock.getName().toLowerCase().contains(searchKeyword)) {
           return true;
-        }
-        else if(stock.getSymbol().toLowerCase().contains(searchKeyword)) {
-          return true;
-        }
-        else {
-          return false;
-        }
+        } else return stock.getSymbol().toLowerCase().contains(searchKeyword);
       });
     });
 
