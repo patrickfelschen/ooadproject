@@ -53,9 +53,10 @@ public class StockSellController extends Routable implements Initializable {
     }
 
 
-    public void sellStock(ActionEvent e) {
+    public void sellStock(ActionEvent e) throws IOException {
         this.depot.removePosten(this.stock, this.spAmount.getValue());
-        this.setData(this.stock);
+        //this.setData(this.stock);
+        Router.getInstance().pushRoute("portfolio");
     }
 
     @FXML
