@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.stage.Popup;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -24,6 +25,8 @@ public class StockDetailsController extends Routable {
   private LineChart<String, Number> lineChart;
   private XYChart.Series<String, Number> series;
   private Stock stock;
+
+  private final Popup popup = new Popup();
 
   public void setStock(Stock stock) {
     this.stock = stock;
@@ -75,12 +78,14 @@ public class StockDetailsController extends Routable {
     setStock((Stock) data);
   }
 
-  public void stockBuy(ActionEvent actionEvent) throws IOException {
-    Router.getInstance().pushRoute("stockBuy", this.stock);
+  public void stockBuy(ActionEvent e) throws IOException {
+    Router.getInstance().pushPopup("stock-buy-view.fxml", this.stock);
+    //Router.getInstance().pushRoute("stockBuy", this.stock);
   }
 
   public void stockSell(ActionEvent actionEvent) throws IOException {
-    Router.getInstance().pushRoute("stockSell", this.stock);
+    Router.getInstance().pushPopup("stock-sell-view.fxml", this.stock);
+    //Router.getInstance().pushRoute("stockSell", this.stock);
   }
 
   public void setHistoryLastWeek(ActionEvent e) {

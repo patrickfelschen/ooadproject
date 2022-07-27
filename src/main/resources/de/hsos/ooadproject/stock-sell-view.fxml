@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 <?import java.lang.Integer?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="350.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="350.0" prefWidth="300.0"
+            style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/18"
             fx:controller="de.hsos.ooadproject.controller.StockSellController">
     <children>
         <Label layoutX="30.0" layoutY="30.0" text="Aktienverkauf">
@@ -34,9 +35,9 @@
                 <Font name="System Bold" size="14.0"/>
             </font>
         </Label>
-        <Label fx:id="lbStockName" layoutX="227.0" layoutY="92.0" text="Label"/>
-        <Label fx:id="lbAsk" layoutX="227.0" layoutY="172.0" text="Label"/>
-        <Label fx:id="lbAmount" layoutX="227.0" layoutY="212.0" text="Label"/>
+        <Label fx:id="lbStockName" layoutX="170.0" layoutY="92.0" prefHeight="17.0" prefWidth="85.0" text="Label"/>
+        <Label fx:id="lbAsk" layoutX="170.0" layoutY="172.0" prefHeight="17.0" prefWidth="85.0" text="Label"/>
+        <Label fx:id="lbAmount" layoutX="170.0" layoutY="212.0" prefHeight="17.0" prefWidth="85.0" text="Label"/>
         <fx:define>
             <Integer fx:id="min" fx:value="0"/>
             <Integer fx:id="max" fx:value="10"/>

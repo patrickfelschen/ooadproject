@@ -4,6 +4,7 @@ import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.application.Platform;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -44,6 +45,7 @@ public class StockManager {
         try {
           Platform.runLater(() -> {
             Calendar cal = Calendar.getInstance();
+            DecimalFormat df = new DecimalFormat("#.00");
             for (Stock s : stockList) {
               s.setVortag(s.getVortag() + rand.nextFloat(0, 1));
               s.setBid(s.getBid() + rand.nextFloat(0, 1));

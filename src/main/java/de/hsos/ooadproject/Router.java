@@ -4,6 +4,7 @@ import de.hsos.ooadproject.interfaces.Routable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class Router {
   private static Router singleInstance = null;
   private final Map<String, String> routes;
   private final Stack<String> navStack;
+  private final Stack<Popup> popupStack;
   private Stage primaryStage;
 
   /**
@@ -26,6 +28,7 @@ public class Router {
   private Router() {
     this.routes = new HashMap<>();
     this.navStack = new Stack<>();
+    this.popupStack = new Stack<>();
 
     this.routes.put("watchList", "watch-list-view.fxml");
     this.routes.put("stockList", "stock-list-view.fxml");
@@ -92,6 +95,7 @@ public class Router {
     primaryStage.setMinHeight(400);
     primaryStage.setMinWidth(720);
 
+    this.popAllPopups();
     this.primaryStage.show();
   }
 
@@ -138,5 +142,29 @@ public class Router {
    */
   public void pushRoute(String routeName) throws IOException {
     pushRoute(routeName, null);
+  }
+
+  public void pushPopup(String popupFxml, Object data) throws IOException {
+    FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(popupFxml));
+    Parent root = loader.load();
+
+    Routable sbc = loader.getController();
+    sbc.setData(data);
+
+    Popup popup = new Popup();
+    popup.getContent().addAll(root);
+
+    popup.setX(primaryStage.getX() + (primaryStage.getWidth() / 2) - (popup.getWidth() / 2));
+    popup.setY(primaryStage.getY() + (primaryStage.getHeight() / 2) - (popup.getHeight() / 2));
+    popup.setAutoHide(true);
+
+    popup.show(primaryStage);
+    popupStack.push(popup);
+  }
+
+  public void popAllPopups() {
+    for (Popup p : popupStack) {
+      p.hide();
+    }
   }
 }
