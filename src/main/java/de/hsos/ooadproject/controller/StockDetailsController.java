@@ -75,6 +75,14 @@ public class StockDetailsController extends Routable {
     setStock((Stock) data);
   }
 
+  public void stockBuy(ActionEvent actionEvent) throws IOException {
+    Router.getInstance().pushRoute("stockBuy", this.stock);
+  }
+
+  public void stockSell(ActionEvent actionEvent) throws IOException {
+    Router.getInstance().pushRoute("stockSell", this.stock);
+  }
+
   public void setHistoryLastWeek(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(1, ChronoUnit.WEEKS);
     LocalDateTime end = LocalDateTime.now();

@@ -12,6 +12,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * StockManager stellt eine künstliche API Schnittstelle dar.
+ */
 public class StockManager {
   private static StockManager singleInstance = null;
   public static List<Stock> stockList = new ArrayList<>(
@@ -29,6 +32,9 @@ public class StockManager {
           )
   );
 
+  /**
+   * Füllt den Preisverlauf der Aktien mit Daten und ändert in einem Thread kontinuierlich die Werte der Aktien mit zufälligen Daten.
+   */
   private StockManager() {
     Random rand = new Random();
 
@@ -57,6 +63,11 @@ public class StockManager {
     updateThread.start();
   }
 
+  /**
+   * Zur Umsetzung des Singleton Patterns.
+   *
+   * @return Instanz des StockManagers.
+   */
   public static StockManager getInstance() {
     if (singleInstance == null) {
       singleInstance = new StockManager();
@@ -95,6 +106,12 @@ public class StockManager {
     stock.setHistory(historyPoints);
   }
 
+  /**
+   * Findet zu einer übergebenen Liste von Aktien-Symbolen die dazugehörigen Aktien-Objekte.
+   *
+   * @param stockIds Liste von Symbolen, welche eine Aktie identifizieren.
+   * @return Liste von Aktien, die zu den Symbolen gehören.
+   */
   public List<Stock> getWatchList(List<String> stockIds) {
     List<Stock> watchList = new ArrayList<>();
     for (Stock s : getStockList()) {

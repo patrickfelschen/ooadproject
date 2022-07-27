@@ -9,6 +9,9 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
+/**
+ * Stock stellt die Werte einer Aktie dar.
+ */
 public class Stock {
 
   private final StringProperty name;
@@ -21,6 +24,18 @@ public class Stock {
   private final StringProperty time;
   private final ObservableList<HistoryPoint> history;
 
+  /**
+   * Erzeugt ein Objekt einer Aktie. Parameter werden in Properties umgewandelt, welche das Koppel an andere Objekte ermöglichen.
+   *
+   * @param name      Name der Aktie.
+   * @param symbol    Symbol der Aktie. Aktie lässt sich darüber eindeutig identifizieren.
+   * @param vortag    Preis der Aktie vom Vortag.
+   * @param bid       Angebotspreis der Aktie.
+   * @param ask       Nachfragepreis der Aktie.
+   * @param percent   Prozentuale Preisänderung der Aktie.
+   * @param plusMinus Wert der Preisänderung.
+   * @param time      Datum der letzten Aktualisierung.
+   */
   public Stock(String name, String symbol, float vortag, float bid, float ask, float percent, float plusMinus, String time) {
     this.name = new SimpleStringProperty(name);
     this.symbol = new SimpleStringProperty(symbol);

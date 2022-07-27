@@ -50,7 +50,7 @@ public class PortfolioController extends Routable implements Initializable {
         portfolioValue.setText(String.valueOf(depot.getValue()));
 
         // Gesamtwert
-        for (Posten p : depot.getPosten()) {
+        for (Posten p : depot.getAllPosten()) {
             p.getStock().askProperty().addListener((observable, oldValue, newValue) -> {
                 portfolioValue.setText(String.valueOf(depot.getValue()));
             });
@@ -66,7 +66,7 @@ public class PortfolioController extends Routable implements Initializable {
         this.chart.setAnimated(true);
 
         // List
-        listData = FXCollections.observableArrayList(depot.getPosten());
+        listData = FXCollections.observableArrayList(depot.getAllPosten());
 
         portfolioList.setCellFactory(portfolioListView -> {
             PortfolioListItem item = new PortfolioListItem();
