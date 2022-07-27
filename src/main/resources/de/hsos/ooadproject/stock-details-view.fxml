@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <SplitPane xmlns:fx="http://javafx.com/fxml/1" dividerPositions="0.7328947368421053" prefHeight="396.0"
-           prefWidth="762.0" xmlns="http://javafx.com/javafx/16"
+           prefWidth="762.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
            fx:controller="de.hsos.ooadproject.controller.StockDetailsController">
     <items>
         <AnchorPane minHeight="200.0" minWidth="500.0" prefHeight="400.0" prefWidth="500.0">
@@ -34,26 +34,23 @@
                        AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0"/>
             <HBox layoutX="79.0" layoutY="75.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
                 <children>
-                    <MFXButton mnemonicParsing="false" style="-fx-background-color: #414BB2;" text="1 Woche"
-                               textFill="WHITE"/>
+                    <MFXButton mnemonicParsing="false" onAction="#setHistoryLastWeek"
+                               style="-fx-background-color: #414BB2;" text="1 Woche" textFill="WHITE"/>
                     <Pane HBox.hgrow="ALWAYS"/>
-                    <MFXButton mnemonicParsing="false" style="-fx-background-color: #414BB2;" text="1 Monat"
-                               textFill="WHITE"/>
+                    <MFXButton mnemonicParsing="false" onAction="#setHistoryLastMonth"
+                               style="-fx-background-color: #414BB2;" text="1 Monat" textFill="WHITE"/>
                     <Pane HBox.hgrow="ALWAYS"/>
-                    <MFXButton mnemonicParsing="false" style="-fx-background-color: #414BB2;" text="6 Monate"
-                               textFill="WHITE"/>
+                    <MFXButton mnemonicParsing="false" onAction="#setHistoryLastSixMonth"
+                               style="-fx-background-color: #414BB2;" text="6 Monate" textFill="WHITE"/>
                     <Pane HBox.hgrow="ALWAYS"/>
-                    <MFXButton mnemonicParsing="false" style="-fx-background-color: #414BB2;" text="1 Jahr"
-                               textFill="WHITE"/>
+                    <MFXButton mnemonicParsing="false" onAction="#setHistoryLastYear"
+                               style="-fx-background-color: #414BB2;" text="1 Jahr" textFill="WHITE"/>
                     <Pane HBox.hgrow="ALWAYS"/>
-                    <MFXButton mnemonicParsing="false" style="-fx-background-color: #414BB2;" text="3 Jahre"
-                               textFill="WHITE"/>
+                    <MFXButton mnemonicParsing="false" onAction="#setHistoryLastThreeYear"
+                               style="-fx-background-color: #414BB2;" text="3 Jahre" textFill="WHITE"/>
                     <Pane HBox.hgrow="ALWAYS"/>
-                    <MFXButton mnemonicParsing="false" style="-fx-background-color: #414BB2;" text="5 Jahre"
-                               textFill="WHITE"/>
-                    <Pane HBox.hgrow="ALWAYS"/>
-                    <MFXButton mnemonicParsing="false" style="-fx-background-color: #414BB2;" text="Max"
-                               textFill="WHITE"/>
+                    <MFXButton mnemonicParsing="false" onAction="#setHistoryLastFiveYear"
+                               style="-fx-background-color: #414BB2;" text="5 Jahre" textFill="WHITE"/>
                 </children>
             </HBox>
         </AnchorPane>
