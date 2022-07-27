@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * PortfolioController implementiert die Logik der Portfolio-List und des Diagramms.
+ */
 public class PortfolioController extends Routable implements Initializable {
     @FXML
     public Label portfolioValue;
@@ -28,6 +31,14 @@ public class PortfolioController extends Routable implements Initializable {
     private ObservableList<PieChart.Data> chartData;
     private ObservableList<Posten> listData;
 
+    /**
+     * Beim Aufrufen des Controllers werden Aktienwerte aus den Posten dargestellt.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     *                  the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.chartData = FXCollections.observableArrayList();
@@ -37,12 +48,13 @@ public class PortfolioController extends Routable implements Initializable {
 
         portfolioValue.setText(String.valueOf(depot.getValue()));
 
-        // Gesamtwert
+        // Gesamtwert (in Euro) des Depots
         for (Posten p : depot.getAllPosten()) {
             p.getStock().askProperty().addListener((observable, oldValue, newValue) -> {
                 portfolioValue.setText(String.valueOf(depot.getValue()));
             });
 
+            // Diagrammdaten erstellen
             PieChart.Data data = new PieChart.Data(p.getStock().getName(), p.getAskValue() / depot.getValue());
             data.nameProperty().bind(p.getStock().nameProperty());
             data.pieValueProperty().bind(p.getStock().askProperty().divide(depot.getValue()));
@@ -56,12 +68,13 @@ public class PortfolioController extends Routable implements Initializable {
         // List
         listData = FXCollections.observableArrayList(depot.getAllPosten());
 
+        // Neuer Eintrag einer Liste, Zelle ist Element von Klasse PortfolioListItem
         portfolioList.setCellFactory(portfolioListView -> {
             PortfolioListItem item = new PortfolioListItem();
 
             item.setOnMouseClicked(event -> {
                 try {
-                    Router.getInstance().pushRoute("stockDetails", item.getItem().getStock());
+                    Router.getInstance().pushRoute("stockDetails", item.getItem().getStock()); // Detailübersicht der ausgewählten Aktie
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * WatchListTableController implementiert die Logik der Tabelle zur Übersicht favorisierter Aktien.
+ */
 public class WatchListTableController implements Initializable {
   final ObservableList<Stock> aktien = FXCollections.observableArrayList();
   @FXML
@@ -32,12 +35,21 @@ public class WatchListTableController implements Initializable {
   @FXML
   private MFXTextField searchField;
 
+  /**
+   * Erzeugt Tabelle und füllt sie mit Aktien, welche im UserManager vermerkt wurden.
+   *
+   * @param location  The location used to resolve relative paths for the root object, or
+   *                  {@code null} if the location is not known.
+   * @param resources The resources used to localize the root object, or {@code null} if
+   *                  the root object was not localized.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     UserManager userManager = UserManager.getInstance();
     StockManager stockManager = StockManager.getInstance();
-    aktien.setAll(stockManager.getWatchList(userManager.getWatchListStockIds()));
+    aktien.setAll(stockManager.getWatchList(userManager.getWatchListStockIds())); // Alle Aktien, dessen Symbol in der Watchlist gespeichert wurde.
 
+    // Erstellen von Tabelleneinträgen (spaltenweise). Einträge sind über Übergebene Properties an Felder aus Stock gebunden.
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
     colVortag.setCellValueFactory(new PropertyValueFactory<>("vortag"));
@@ -47,6 +59,7 @@ public class WatchListTableController implements Initializable {
     colPlusMinus.setCellValueFactory(new PropertyValueFactory<>("plusMinus"));
     colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
+    // Erstellen eines Buttons um Aktie aus Watchlist zu entfernen.
     colAction.setCellFactory(tc -> new TableCell<>() {
       private final MFXButton btn = new MFXButton("✖");
 
@@ -72,6 +85,7 @@ public class WatchListTableController implements Initializable {
       }
     });
 
+    // Ruft beim anklicken einer Reihe die Detailübersicht der Aktie auf.
     watchListTable.setRowFactory(tv -> {
       TableRow<Stock> row = new TableRow<>();
       row.setOnMouseClicked(event -> {
@@ -88,8 +102,7 @@ public class WatchListTableController implements Initializable {
       return row;
     });
 
-    watchListTable.setItems(aktien);
-
+    // Filtern der List nach eigegebenem Suchwort.
     FilteredList<Stock> filteredAktien = new FilteredList<>(aktien);
 
     this.searchField.textProperty().addListener((observable, oldValue, newValue) -> {
