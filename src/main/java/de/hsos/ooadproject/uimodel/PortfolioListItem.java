@@ -48,6 +48,7 @@ public class PortfolioListItem extends ListCell<Posten> {
       symbolLabel.textProperty().unbind();
       amountInEURValue.textProperty().unbind();
 
+      // initiale Werte setzen
       nameLabel.setText(posten.getStock().getName());
       symbolLabel.setText(posten.getStock().getSymbol());
 
