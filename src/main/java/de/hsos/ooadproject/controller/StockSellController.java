@@ -60,7 +60,7 @@ public class StockSellController extends Routable implements Initializable {
 
     @FXML
     void cancel(ActionEvent e) throws IOException {
-        Router.getInstance().popRoute();
+        Router.getInstance().popRoute(this.stock);
     }
 
     @Override
