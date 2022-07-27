@@ -5,10 +5,19 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+/**
+ * Posten stellt einen Wert im Portfolio, bestehend aus Aktie und Anzahl, dar.
+ */
 public class Posten {
   private final ObjectProperty<Stock> stock;
   private final IntegerProperty number;
 
+  /**
+   * Erzeugt einen neuen Posten aus Aktie und Anzahl. Parameter werden in Properties umgewandelt, welche das Koppel an andere Objekte ermöglichen.
+   *
+   * @param stock  Aktie des Postens.
+   * @param number Anzahl der Aktien.
+   */
   public Posten(Stock stock, int number) {
     this.stock = new SimpleObjectProperty<>(this, "stock", stock);
     this.number = new SimpleIntegerProperty(this, "number", number);
@@ -38,6 +47,9 @@ public class Posten {
     this.number.set(number);
   }
 
+  /**
+   * @return Gesamter Nachfragewert der Aktien im Posten.
+   */
   public float getAskValue() {
     return number.get() * stock.get().getAsk();
   }
