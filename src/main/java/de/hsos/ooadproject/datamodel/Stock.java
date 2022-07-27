@@ -7,7 +7,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.Date;
 import java.util.List;
 
 public class Stock {
@@ -20,7 +19,6 @@ public class Stock {
   private final FloatProperty percent;
   private final FloatProperty plusMinus;
   private final StringProperty time;
-
   private final ObservableList<HistoryPoint> history;
 
   public Stock(String name, String symbol, float vortag, float bid, float ask, float percent, float plusMinus, String time) {
@@ -33,21 +31,15 @@ public class Stock {
     this.plusMinus = new SimpleFloatProperty(plusMinus);
     this.time = new SimpleStringProperty(time);
     this.history = FXCollections.observableArrayList();
-    this.ask.addListener((observable, oldValue, newValue) -> {
-      addHistoryPoint(new HistoryPoint(new Date().toString(), newValue.floatValue()));
-    });
   }
 
   public ObservableList<HistoryPoint> getHistory() {
     return history;
   }
 
-  public void addHistoryPoint(HistoryPoint historyPoint) {
-    this.history.add(historyPoint);
-  }
-
-  public void addAllHistoryPoint(List<HistoryPoint> historyPoints) {
-    this.history.addAll(historyPoints);
+  public void setHistory(List<HistoryPoint> history) {
+    this.history.clear();
+    this.history.addAll(history);
   }
 
   public StringProperty nameProperty() {
