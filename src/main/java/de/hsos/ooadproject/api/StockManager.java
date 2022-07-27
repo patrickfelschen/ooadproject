@@ -4,6 +4,9 @@ import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.application.Platform;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,17 +30,8 @@ public class StockManager {
   );
 
   private StockManager() {
-    // Random Verlauf generieren
-    List<HistoryPoint> hpl = new ArrayList<>();
     Random rand = new Random();
-    float val = 1;
-    for (int i = 0; i < 200; i++) {
-      val += rand.nextFloat(-1, 1);
-      hpl.add(new HistoryPoint(i + ". Tag", val));
-    }
-    for(Stock s: stockList) {
-      s.addAllHistoryPoint(hpl);
-    }
+
     // Random Werte setzen
     Thread updateThread = new Thread(() -> {
       while (true) {
@@ -45,7 +39,6 @@ public class StockManager {
           Platform.runLater(() -> {
             Calendar cal = Calendar.getInstance();
             for (Stock s : stockList) {
-              //s.addAllHistoryPoint(hpl);
               s.setVortag(s.getVortag() + rand.nextFloat(0, 1));
               s.setBid(s.getBid() + rand.nextFloat(0, 1));
               s.setAsk(s.getAsk() + rand.nextFloat(0, 1));
@@ -73,6 +66,33 @@ public class StockManager {
 
   public List<Stock> getStockList() {
     return stockList;
+  }
+
+  public void setStockHistory(Stock stock, LocalDateTime startDate, LocalDateTime endDate, ChronoUnit interval) {
+    List<LocalDateTime> datesInRange = new ArrayList<>();
+
+    // Tage zwischen Daten berechnen
+    LocalDateTime copyStart = startDate;
+    while (copyStart.isBefore(endDate)) {
+      datesInRange.add(copyStart);
+      copyStart = copyStart.plus(1, interval);
+    }
+
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    Random rand = new Random();
+    List<HistoryPoint> historyPoints = new ArrayList<>();
+
+    // Random StockDaten pro Tag generieren
+    float val = 1;
+    for (LocalDateTime d : datesInRange) {
+      String date = dateFormatter.format(d);
+      System.out.println(date);
+      val += rand.nextFloat(-1, 1);
+      historyPoints.add(new HistoryPoint(date, val));
+    }
+
+    // Stock updaten
+    stock.setHistory(historyPoints);
   }
 
   public List<Stock> getWatchList(List<String> stockIds) {
