@@ -9,6 +9,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * StockManager stellt eine künstliche API Schnittstelle dar.
+ */
 public class StockManager {
   private static StockManager singleInstance = null;
   public static List<Stock> stockList = new ArrayList<>(
@@ -26,6 +29,9 @@ public class StockManager {
           )
   );
 
+  /**
+   * Füllt den Preisverlauf der Aktien mit Daten und ändert in einem Thread kontinuierlich die Werte der Aktien mit zufälligen Daten.
+   */
   private StockManager() {
     // Random Verlauf generieren
     List<HistoryPoint> hpl = new ArrayList<>();
@@ -35,7 +41,7 @@ public class StockManager {
       val += rand.nextFloat(-1, 1);
       hpl.add(new HistoryPoint(i + ". Tag", val));
     }
-    for(Stock s: stockList) {
+    for (Stock s : stockList) {
       s.addAllHistoryPoint(hpl);
     }
     // Random Werte setzen
@@ -48,7 +54,7 @@ public class StockManager {
               //s.addAllHistoryPoint(hpl);
               s.setVortag(s.getVortag() + rand.nextFloat(0, 1));
               s.setBid(s.getBid() + rand.nextFloat(0, 1));
-              s.setAsk(s.getAsk() + rand.nextFloat(0, 1));
+              s.setAsk(s.getAsk() + rand.nextFloat(-1, 1));
               s.setPercent(s.getPercent() + rand.nextFloat(0, 1));
               s.setPlusMinus(s.getPlusMinus() + rand.nextFloat(0, 1));
               s.setTime(cal.getTime().toString());
@@ -64,6 +70,11 @@ public class StockManager {
     updateThread.start();
   }
 
+  /**
+   * Zu umseztung des Singleton Patterns.
+   *
+   * @return Instanz des StockManagers.
+   */
   public static StockManager getInstance() {
     if (singleInstance == null) {
       singleInstance = new StockManager();
@@ -75,6 +86,12 @@ public class StockManager {
     return stockList;
   }
 
+  /**
+   * Findet zu einer übergebenen Liste von Aktien-Symbolen die dazugehörigen Aktien-Objekte.
+   *
+   * @param stockIds Liste von Symbolen, welche eine Aktie identifizieren.
+   * @return Liste von Aktien, die zu den Symbolen gehören.
+   */
   public List<Stock> getWatchList(List<String> stockIds) {
     List<Stock> watchList = new ArrayList<>();
     for (Stock s : getStockList()) {
