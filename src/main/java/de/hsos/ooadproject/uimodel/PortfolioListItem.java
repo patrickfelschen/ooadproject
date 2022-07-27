@@ -13,6 +13,9 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
+/**
+ * PortfolioListItem stellt ein Listenelement im Portfolio dar.
+ */
 public class PortfolioListItem extends ListCell<Posten> {
   private final Depot depot;
   @FXML
@@ -25,10 +28,19 @@ public class PortfolioListItem extends ListCell<Posten> {
     this.depot = UserManager.getInstance().getDepot();
   }
 
+  /**
+   * Legt Werte des Listenlements fest
+   *
+   * @param posten The new item for the cell.
+   * @param empty  whether or not this cell represents data from the list. If it
+   *               is empty, then it does not represent any domain data, but is a cell
+   *               being used to render an "empty" row.
+   */
   @Override
   protected void updateItem(Posten posten, boolean empty) {
     super.updateItem(posten, empty);
 
+    // Laden des Views
     if (empty || posten == null) {
       setText(null);
       setGraphic(null);
@@ -48,7 +60,7 @@ public class PortfolioListItem extends ListCell<Posten> {
       symbolLabel.textProperty().unbind();
       amountInEURValue.textProperty().unbind();
 
-      // initiale Werte setzen
+      // Initiale Werte setzen
       nameLabel.setText(posten.getStock().getName());
       symbolLabel.setText(posten.getStock().getSymbol());
 
@@ -63,6 +75,7 @@ public class PortfolioListItem extends ListCell<Posten> {
       symbolLabel.textProperty().bind(Bindings.convert(posten.getStock().symbolProperty()));
       countValue.textProperty().bind(Bindings.convert(posten.numberProperty()));
 
+      // Auf Änderungen der Aktie reagieren und Labels neu setzen
       posten.getStock().askProperty().addListener((observable, oldValue, newValue) -> {
         float sumVal = newValue.floatValue() * posten.getNumber();
         amountInEURValue.setText(sumVal + " EUR");

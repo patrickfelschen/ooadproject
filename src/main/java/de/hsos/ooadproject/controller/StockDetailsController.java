@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * StockDetailsController stellt Werte einer Aktie in Text- und Diagrammform dar.
+ */
 public class StockDetailsController extends Routable {
   @FXML
   private Label lbStockName, lbSymbol, lbVortag, lbBid, lbAsk, lbPercent, lbTime, lbPlusMinus;
@@ -25,6 +28,11 @@ public class StockDetailsController extends Routable {
   private XYChart.Series<String, Number> series;
   private Stock stock;
 
+  /**
+   * Lädt übergebene Aktie und stellt den Inhalt dar.
+   *
+   * @param stock Anzuzeigende Aktie.
+   */
   public void setStock(Stock stock) {
     this.stock = stock;
     this.lbStockName.setText(stock.getName());
@@ -36,7 +44,7 @@ public class StockDetailsController extends Routable {
     this.lbPlusMinus.setText(String.valueOf(stock.getPlusMinus()));
     this.lbTime.setText(stock.getTime());
 
-    // Bind to properties and update the UI
+    // Koppeln der Properties an UI-Elemente ermöglicht dynamische Aktualisierung.
     lbStockName.textProperty().bind(Bindings.convert(stock.nameProperty()));
     lbSymbol.textProperty().bind(Bindings.convert(stock.symbolProperty()));
     lbVortag.textProperty().bind(Bindings.convert(stock.vortagProperty()));
@@ -48,7 +56,7 @@ public class StockDetailsController extends Routable {
 
     this.series = new XYChart.Series<>();
 
-    // Live chart data on changes
+    // Diagramm-Daten aktualiseren automatisch, wenn dem Preisverlauf ein neuer Preis hinzugefügt wurde.
     stock.getHistory().addListener((ListChangeListener<HistoryPoint>) c -> {
       series.getData().clear();
       for (int i = 0; i < stock.getHistory().size(); i++) {
@@ -64,25 +72,53 @@ public class StockDetailsController extends Routable {
     this.lineChart.getData().add(series);
   }
 
+  /**
+   * Navigiert einen Screen zurück.
+   *
+   * @param e
+   * @throws IOException
+   */
   @FXML
   void navigateBack(ActionEvent e) throws IOException {
     Router.getInstance().popRoute();
   }
 
+  /**
+   * Setzt das aus der Route übergebene Element.
+   *
+   * @param data Übergebene Aktie.
+   */
   @Override
   public void setData(Object data) {
     if (data == null) return;
     setStock((Stock) data);
   }
 
+  /**
+   * Öffnet Fenster zum Kaufen von Aktie.
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
   public void stockBuy(ActionEvent actionEvent) throws IOException {
     Router.getInstance().pushRoute("stockBuy", this.stock);
   }
 
+  /**
+   * Öffnet Fenster zum Verkaufen von Aktie.
+   *
+   * @param actionEvent
+   * @throws IOException
+   */
   public void stockSell(ActionEvent actionEvent) throws IOException {
     Router.getInstance().pushRoute("stockSell", this.stock);
   }
 
+  /**
+   * Zeigt im Diagramm Preisverlauf der letzten Woche an.
+   *
+   * @param e
+   */
   public void setHistoryLastWeek(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(1, ChronoUnit.WEEKS);
     LocalDateTime end = LocalDateTime.now();
@@ -90,6 +126,11 @@ public class StockDetailsController extends Routable {
     StockManager.getInstance().setStockHistory(stock, start, end, ChronoUnit.HALF_DAYS);
   }
 
+  /**
+   * Zeigt im Diagramm Preisverlauf des letzten Monats an.
+   *
+   * @param e
+   */
   public void setHistoryLastMonth(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(1, ChronoUnit.MONTHS);
     LocalDateTime end = LocalDateTime.now();
@@ -97,6 +138,11 @@ public class StockDetailsController extends Routable {
     StockManager.getInstance().setStockHistory(stock, start, end, ChronoUnit.DAYS);
   }
 
+  /**
+   * Zeigt im Diagramm Preisverlauf der letzten sechs Monate an.
+   *
+   * @param e
+   */
   public void setHistoryLastSixMonth(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(6, ChronoUnit.MONTHS);
     LocalDateTime end = LocalDateTime.now();
@@ -104,6 +150,11 @@ public class StockDetailsController extends Routable {
     StockManager.getInstance().setStockHistory(stock, start, end, ChronoUnit.DAYS);
   }
 
+  /**
+   * Zeigt im Diagramm Preisverlauf des letzten Jahres an.
+   *
+   * @param e
+   */
   public void setHistoryLastYear(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
     LocalDateTime end = LocalDateTime.now();
@@ -111,6 +162,11 @@ public class StockDetailsController extends Routable {
     StockManager.getInstance().setStockHistory(stock, start, end, ChronoUnit.DAYS);
   }
 
+  /**
+   * Zeigt im Diagramm Preisverlauf der letzten drei Jahre an.
+   *
+   * @param e
+   */
   public void setHistoryLastThreeYear(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(3, ChronoUnit.YEARS);
     LocalDateTime end = LocalDateTime.now();
@@ -118,6 +174,11 @@ public class StockDetailsController extends Routable {
     StockManager.getInstance().setStockHistory(stock, start, end, ChronoUnit.DAYS);
   }
 
+  /**
+   * Zeigt im Diagramm Preisverlauf der letzten fünf Jahre an.
+   *
+   * @param e
+   */
   public void setHistoryLastFiveYear(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(5, ChronoUnit.YEARS);
     LocalDateTime end = LocalDateTime.now();

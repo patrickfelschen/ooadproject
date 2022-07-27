@@ -6,6 +6,9 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
+/**
+ * MainMenuController implementiert die Logik der Navigationsleiste und ermöglicht das wechseln der Szenen.
+ */
 public class MainMenuController extends Routable {
   public void showWatchList(ActionEvent e) throws IOException {
     Router.getInstance().pushRoute("watchList");
