@@ -52,12 +52,11 @@ public class StockDetailsController extends Routable {
 
     // Live chart data on ask-pice changes
     stock.getHistory().addListener((ListChangeListener<HistoryPoint>) c -> {
-      for(int i = 0; i < stock.getHistory().size(); i++) {
-        series.getData().add(new XYChart.Data<>(String.valueOf(i), stock.getHistory().get(i).getAsk()));
-      }
+      int lastIndex = stock.getHistory().size() - 1;
+      series.getData().add(new XYChart.Data<>(String.valueOf(lastIndex), stock.getHistory().get(lastIndex).getAsk()));
     });
 
-    this.lineChart.setAnimated(false);
+    this.lineChart.setAnimated(true);
     this.lineChart.getData().add(series);
   }
 
