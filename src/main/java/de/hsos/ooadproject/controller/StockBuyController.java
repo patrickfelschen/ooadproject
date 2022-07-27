@@ -53,8 +53,9 @@ public class StockBuyController extends Routable implements Initializable {
     }
 
 
-    public void buyStock(ActionEvent e) {
+    public void buyStock(ActionEvent e) throws IOException {
         this.depot.addPosten(this.stock, this.spAmount.getValue());
+        Router.getInstance().pushRoute("portfolio");
     }
 
     @FXML
