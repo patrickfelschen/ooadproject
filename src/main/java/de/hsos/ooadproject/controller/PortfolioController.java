@@ -1,7 +1,6 @@
 package de.hsos.ooadproject.controller;
 
 import de.hsos.ooadproject.Router;
-import de.hsos.ooadproject.api.StockManager;
 import de.hsos.ooadproject.api.UserManager;
 import de.hsos.ooadproject.datamodel.Depot;
 import de.hsos.ooadproject.datamodel.Posten;
@@ -33,19 +32,8 @@ public class PortfolioController extends Routable implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.chartData = FXCollections.observableArrayList();
 
-        StockManager stockManager = StockManager.getInstance();
         UserManager userManager = UserManager.getInstance();
         Depot depot = userManager.getDepot();
-
-        depot.addPosten(stockManager.getStockList().get(0), 10);
-        depot.addPosten(stockManager.getStockList().get(1), 342);
-        depot.addPosten(stockManager.getStockList().get(2), 6);
-        depot.addPosten(stockManager.getStockList().get(3), 155);
-        depot.addPosten(stockManager.getStockList().get(4), 105);
-        depot.addPosten(stockManager.getStockList().get(5), 170);
-        depot.addPosten(stockManager.getStockList().get(6), 170);
-        depot.addPosten(stockManager.getStockList().get(7), 456);
-        depot.addPosten(stockManager.getStockList().get(8), 170);
 
         portfolioValue.setText(String.valueOf(depot.getValue()));
 
