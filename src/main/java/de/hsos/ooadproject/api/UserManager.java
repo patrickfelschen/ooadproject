@@ -19,7 +19,7 @@ public class UserManager {
   /**
    * Zur Umsetzung des Singleton Patterns.
    *
-   * @return Instanz des StockManagers.
+   * @return Instanz des UserManagers.
    */
   public static UserManager getInstance() {
     if (singleInstance == null) {
