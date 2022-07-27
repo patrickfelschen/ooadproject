@@ -7,7 +7,7 @@ public class Depot {
   private final List<Posten> posten;
 
   public Depot() {
-    this.posten = new ArrayList<>(); //SimpleListProperty<>(this, "posten"); // ArrayList<>();
+    this.posten = new ArrayList<>();
   }
 
   public List<Posten> getPosten() {
