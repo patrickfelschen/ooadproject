@@ -4,7 +4,6 @@ import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.application.Platform;
 
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -19,16 +18,16 @@ import java.util.Random;
 public class StockManager {
   public static List<Stock> stockList = new ArrayList<>(
           List.of(
-                  new Stock("1&1", "DE0005545503", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("11880 Solutions", "DE0005118806", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("3U", "DE0005167902", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("Aareal Bank", "DE0005408116", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("Activa Resources", "DE0007471377", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("ADVA", "DE0005103006", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("Air Berlin", "GB00B128C026", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("ALBIS Leasing", "DE0006569403", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("All for One Group", "DE0005110001", 0, 0, 0, 0, 0, "00:00:00"),
-                  new Stock("Allianz", "DE0008404005", 0, 0, 0, 0, 0, "00:00:00")
+                  new Stock("1&1", "DE0005545503", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("11880 Solutions", "DE0005118806", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("3U", "DE0005167902", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("Aareal Bank", "DE0005408116", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("Activa Resources", "DE0007471377", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("ADVA", "DE0005103006", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("Air Berlin", "GB00B128C026", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("ALBIS Leasing", "DE0006569403", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("All for One Group", "DE0005110001", 1, 1, 1, 1, 1, "00:00:00"),
+                  new Stock("Allianz", "DE0008404005", 1, 1, 1, 1, 1, "00:00:00")
           )
   );
   private static StockManager singleInstance = null;
@@ -45,13 +44,12 @@ public class StockManager {
         try {
           Platform.runLater(() -> {
             Calendar cal = Calendar.getInstance();
-            DecimalFormat df = new DecimalFormat("#.00");
             for (Stock s : stockList) {
-              s.setVortag(s.getVortag() + rand.nextFloat(0, 1));
-              s.setBid(s.getBid() + rand.nextFloat(0, 1));
-              s.setAsk(s.getAsk() + rand.nextFloat(0, 1));
-              s.setPercent(s.getPercent() + rand.nextFloat(0, 1));
-              s.setPlusMinus(s.getPlusMinus() + rand.nextFloat(0, 1));
+              s.setVortag(s.getVortag() * (rand.nextFloat(9, 11) / 10.0f));
+              s.setBid(s.getBid() * (rand.nextFloat(9, 11) / 10.0f));
+              s.setAsk(s.getAsk() * (rand.nextFloat(9, 11) / 10.0f));
+              s.setPercent(s.getPercent() * (rand.nextFloat(9, 11) / 10.0f));
+              s.setPlusMinus(s.getPlusMinus() * (rand.nextFloat(9, 11) / 10.0f));
               s.setTime(cal.getTime().toString());
             }
           });

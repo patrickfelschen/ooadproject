@@ -13,7 +13,6 @@ import java.util.List;
  * Stock stellt die Werte einer Aktie dar.
  */
 public class Stock {
-
   private final StringProperty name;
   private final StringProperty symbol;
   private final FloatProperty vortag;

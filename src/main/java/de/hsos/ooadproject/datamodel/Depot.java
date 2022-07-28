@@ -1,16 +1,41 @@
 package de.hsos.ooadproject.datamodel;
 
-import java.util.ArrayList;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.List;
 
 /**
  * Depot stellt die Werte eines Portfolios dar.
  */
 public class Depot {
-  private final List<Posten> posten;
+  private final ObservableList<Posten> posten;
+  private final FloatProperty askSum;
 
   public Depot() {
-    this.posten = new ArrayList<>();
+    this.posten = FXCollections.observableArrayList();
+    this.askSum = new SimpleFloatProperty(this, "ask");
+  }
+
+  public double getAskSum() {
+    return askSum.get();
+  }
+
+  /**
+   * Berechnet neue Summe aus Ask Werten
+   */
+  private void updateAskSum() {
+    float newAsk = 0;
+    for (Posten p : posten) {
+      newAsk += p.askValueSumProperty().get();
+    }
+    this.askSumProperty().set(newAsk);
+  }
+
+  public FloatProperty askSumProperty() {
+    return askSum;
   }
 
   /**
@@ -20,9 +45,9 @@ public class Depot {
    * @return Falls Aktie in Posten gefunden wurde, wird der Posten zurückgegeben.
    */
   public Posten getPosten(Stock stock) {
-    for (Posten p1 : posten) {
-      if (p1.getStock().equals(stock)) {
-        return p1;
+    for (Posten p : posten) {
+      if (p.getStock().equals(stock)) {
+        return p;
       }
     }
     return new Posten(new Stock("", "", 0, 0, 0, 0, 0, ""), 0);
@@ -30,19 +55,6 @@ public class Depot {
 
   public List<Posten> getAllPosten() {
     return posten;
-  }
-
-  /**
-   * Berechnet den Gesamtwert aller Posten.
-   *
-   * @return Gesamtwert (in Euro).
-   */
-  public float getValue() {
-    float val = 0;
-    for (Posten p : this.posten) {
-      val += p.getAskValue();
-    }
-    return val;
   }
 
   /**
@@ -60,6 +72,11 @@ public class Depot {
       }
     }
     // Posten existiert nicht, Posten neu anlegen
+    Posten newPosten = new Posten(stock, number);
+    // Stock Ask Änderungen sollen zum neuberechnen des Gesamt Asks führen
+    newPosten.getStock().askProperty().addListener((obs, o, n) -> {
+      this.updateAskSum();
+    });
     this.posten.add(new Posten(stock, number));
   }
 
@@ -86,5 +103,20 @@ public class Depot {
         break;
       }
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Depot depot = (Depot) o;
+
+    return posten.equals(depot.posten);
+  }
+
+  @Override
+  public int hashCode() {
+    return posten.hashCode();
   }
 }

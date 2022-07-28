@@ -4,8 +4,10 @@ import de.hsos.ooadproject.Router;
 import de.hsos.ooadproject.api.UserManager;
 import de.hsos.ooadproject.datamodel.Depot;
 import de.hsos.ooadproject.datamodel.Posten;
+import de.hsos.ooadproject.datamodel.Stock;
 import de.hsos.ooadproject.interfaces.Routable;
 import de.hsos.ooadproject.uimodel.PortfolioListItem;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,6 +32,7 @@ public class PortfolioController extends Routable implements Initializable {
     private ListView<Posten> portfolioList;
     private ObservableList<PieChart.Data> chartData;
     private ObservableList<Posten> listData;
+    private Depot depot;
 
     /**
      * Beim Aufrufen des Controllers werden Aktienwerte aus den Posten dargestellt.
@@ -41,46 +44,56 @@ public class PortfolioController extends Routable implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.depot = UserManager.getInstance().getDepot();
+        this.listData = FXCollections.observableArrayList(this.depot.getAllPosten());
         this.chartData = FXCollections.observableArrayList();
+        this.initializeList();
+        this.initializeChart();
+    }
 
-        UserManager userManager = UserManager.getInstance();
-        Depot depot = userManager.getDepot();
-
-        portfolioValue.setText(String.valueOf(depot.getValue()));
-
-        // Gesamtwert (in Euro) des Depots
-        for (Posten p : depot.getAllPosten()) {
-            p.getStock().askProperty().addListener((observable, oldValue, newValue) -> {
-                portfolioValue.setText(String.valueOf(depot.getValue()));
-            });
-
+    /**
+     * Scheibendiagramm mit Daten füllen
+     */
+    void initializeChart() {
+        for (Posten p : listData) {
             // Diagrammdaten erstellen
-            PieChart.Data data = new PieChart.Data(p.getStock().getName(), p.getAskValue() / depot.getValue());
+            PieChart.Data data = new PieChart.Data(null, 0);
             data.nameProperty().bind(p.getStock().nameProperty());
-            data.pieValueProperty().bind(p.getStock().askProperty().divide(depot.getValue()));
+            data.pieValueProperty().bind(p.askValueSumProperty());
             this.chartData.add(data);
         }
-
-        // Chart
-        chart.setData(chartData);
+        this.chart.setData(chartData);
         this.chart.setAnimated(true);
 
-        // List
-        listData = FXCollections.observableArrayList(depot.getAllPosten());
+        //Gesamtwert (in Euro) des Depots
+        portfolioValue.textProperty().bind(Bindings.convert(this.depot.askSumProperty()));
+    }
 
+    /**
+     * Liste mit Daten füllen
+     */
+    void initializeList() {
         // Neuer Eintrag einer Liste, Zelle ist Element von Klasse PortfolioListItem
-        portfolioList.setCellFactory(portfolioListView -> {
+        this.portfolioList.setCellFactory(portfolioListView -> {
             PortfolioListItem item = new PortfolioListItem();
-
-            item.setOnMouseClicked(event -> {
-                try {
-                    Router.getInstance().pushRoute("stockDetails", item.getItem().getStock()); // Detailübersicht der ausgewählten Aktie
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            item.setOnMouseClicked(e -> {
+                navigateToStockDetails(item.getItem().getStock());
             });
             return item;
         });
-        portfolioList.setItems(listData);
+        this.portfolioList.setItems(listData);
+    }
+
+    /**
+     * Öffnet Detailübersicht der ausgewählten Aktie
+     *
+     * @param stock Aktie zu der Details angezeigt werden sollen.
+     */
+    void navigateToStockDetails(Stock stock) {
+        try {
+            Router.getInstance().pushRoute("stockDetails", stock);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

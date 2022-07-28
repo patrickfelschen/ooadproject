@@ -1,8 +1,6 @@
 package de.hsos.ooadproject.uimodel;
 
 import de.hsos.ooadproject.MainApp;
-import de.hsos.ooadproject.api.UserManager;
-import de.hsos.ooadproject.datamodel.Depot;
 import de.hsos.ooadproject.datamodel.Posten;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -17,16 +15,11 @@ import java.io.IOException;
  * PortfolioListItem stellt ein Listenelement im Portfolio dar.
  */
 public class PortfolioListItem extends ListCell<Posten> {
-  private final Depot depot;
   @FXML
-  private Label nameLabel, symbolLabel, countValue, latestPriceValue, amountInEURValue, amountInPercentValue;
+  private Label nameLabel, symbolLabel, countValue, latestPriceValue, amountInEURValue;
   @FXML
   private GridPane gridPane;
   private FXMLLoader loader;
-
-  public PortfolioListItem() {
-    this.depot = UserManager.getInstance().getDepot();
-  }
 
   /**
    * Legt Werte des Listenlements fest
@@ -44,49 +37,41 @@ public class PortfolioListItem extends ListCell<Posten> {
     if (empty || posten == null) {
       setText(null);
       setGraphic(null);
-    } else {
-      if (loader == null) {
-        loader = new FXMLLoader(MainApp.class.getResource("portfolio-list-item.fxml"));
-        loader.setController(this);
+      return;
+    }
 
-        try {
-          loader.load();
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
+    this.loadView();
+    this.bindLabels(posten);
+
+    setText(null);
+    setGraphic(gridPane);
+  }
+
+  /**
+   * Auf Änderungen der Aktie reagieren und Labels neu setzen
+   *
+   * @param posten aktueller Posten der angezeigt werden soll
+   */
+  void bindLabels(Posten posten) {
+    nameLabel.textProperty().bind(Bindings.convert(posten.getStock().nameProperty()));
+    symbolLabel.textProperty().bind(Bindings.convert(posten.getStock().symbolProperty()));
+    countValue.textProperty().bind(Bindings.convert(posten.numberProperty()));
+    amountInEURValue.textProperty().bind(Bindings.convert(posten.askValueSumProperty()).concat(" EUR"));
+    latestPriceValue.textProperty().bind(Bindings.convert(posten.getStock().askProperty()).concat(" EUR"));
+  }
+
+  /**
+   * Lädt View und setzt Controller
+   */
+  void loadView() {
+    if (loader == null) {
+      loader = new FXMLLoader(MainApp.class.getResource("portfolio-list-item.fxml"));
+      loader.setController(this);
+      try {
+        loader.load();
+      } catch (IOException e) {
+        e.printStackTrace();
       }
-
-      nameLabel.textProperty().unbind();
-      symbolLabel.textProperty().unbind();
-      amountInEURValue.textProperty().unbind();
-
-      // Initiale Werte setzen
-      nameLabel.setText(posten.getStock().getName());
-      symbolLabel.setText(posten.getStock().getSymbol());
-
-      float val = posten.getStock().getAsk() * posten.getNumber();
-      amountInEURValue.setText(val + " EUR");
-      latestPriceValue.setText(posten.getStock().getAsk() + " EUR");
-
-      float percent = (val / depot.getValue()) * 100.0f;
-      amountInPercentValue.setText(percent + " %");
-
-      nameLabel.textProperty().bind(Bindings.convert(posten.getStock().nameProperty()));
-      symbolLabel.textProperty().bind(Bindings.convert(posten.getStock().symbolProperty()));
-      countValue.textProperty().bind(Bindings.convert(posten.numberProperty()));
-
-      // Auf Änderungen der Aktie reagieren und Labels neu setzen
-      posten.getStock().askProperty().addListener((observable, oldValue, newValue) -> {
-        float sumVal = newValue.floatValue() * posten.getNumber();
-        amountInEURValue.setText(sumVal + " EUR");
-        latestPriceValue.setText(oldValue + " EUR");
-
-        float newPercent = (sumVal / depot.getValue()) * 100.0f;
-        amountInPercentValue.setText(newPercent + " %");
-      });
-
-      setText(null);
-      setGraphic(gridPane);
     }
   }
 }
