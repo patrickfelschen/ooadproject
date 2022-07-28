@@ -43,11 +43,11 @@ public class StockManager {
         try {
           Platform.runLater(() -> {
             for (Stock s : stockList) {
-              s.setVortag(round(s.getVortag() * randomStockData()));
-              s.setBid(round(s.getBid() * randomStockData()));
-              s.setAsk(round(s.getAsk() * randomStockData()));
-              s.setPercent(round(s.getPercent() * randomStockData()));
-              s.setPlusMinus(round(s.getPlusMinus() * randomStockData()));
+              s.setVortag(round(s.getVortag() * randomStockChange()));
+              s.setBid(round(s.getBid() * randomStockChange()));
+              s.setAsk(round(s.getAsk() * randomStockChange()));
+              s.setPercent(round(s.getPercent() * randomStockChange()));
+              s.setPlusMinus(round(s.getPlusMinus() * randomStockChange()));
               s.setTime(LocalDateTime.now());
             }
           });
@@ -67,9 +67,9 @@ public class StockManager {
     return bd.floatValue();
   }
 
-  public static float randomStockData() {
+  public static float randomStockChange() {
     Random rand = new Random();
-    return rand.nextFloat(8, 12) / 10.0f;
+    return rand.nextFloat(9, 11) / 10.0f;
   }
 
   /**
@@ -88,6 +88,14 @@ public class StockManager {
     return stockList;
   }
 
+  /**
+   * Generiert zufällige
+   *
+   * @param stock
+   * @param startDate
+   * @param endDate
+   * @param interval
+   */
   public void setStockHistory(Stock stock, LocalDateTime startDate, LocalDateTime endDate, ChronoUnit interval) {
     List<LocalDateTime> datesInRange = new ArrayList<>();
 
@@ -106,7 +114,7 @@ public class StockManager {
     float val = 1;
     for (LocalDateTime d : datesInRange) {
       String date = dateFormatter.format(d);
-      val += rand.nextFloat(-1, 1);
+      val *= randomStockChange();
       historyPoints.add(new HistoryPoint(date, val));
     }
 
