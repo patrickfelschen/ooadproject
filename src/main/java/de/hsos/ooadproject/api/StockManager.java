@@ -4,6 +4,8 @@ import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.application.Platform;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -30,14 +32,11 @@ public class StockManager {
                   new Stock("Allianz", "DE0008404005", 1, 1, 1, 1, 1, "00:00:00")
           )
   );
-  private static StockManager singleInstance = null;
 
   /**
    * Füllt den Preisverlauf der Aktien mit Daten und ändert in einem Thread kontinuierlich die Werte der Aktien mit zufälligen Daten.
    */
   private StockManager() {
-    Random rand = new Random();
-
     // Random Werte setzen
     Thread updateThread = new Thread(() -> {
       while (true) {
@@ -45,15 +44,15 @@ public class StockManager {
           Platform.runLater(() -> {
             Calendar cal = Calendar.getInstance();
             for (Stock s : stockList) {
-              s.setVortag(s.getVortag() * (rand.nextFloat(9, 11) / 10.0f));
-              s.setBid(s.getBid() * (rand.nextFloat(9, 11) / 10.0f));
-              s.setAsk(s.getAsk() * (rand.nextFloat(9, 11) / 10.0f));
-              s.setPercent(s.getPercent() * (rand.nextFloat(9, 11) / 10.0f));
-              s.setPlusMinus(s.getPlusMinus() * (rand.nextFloat(9, 11) / 10.0f));
+              s.setVortag(round(s.getVortag() * randomStockData()));
+              s.setBid(round(s.getBid() * randomStockData()));
+              s.setAsk(round(s.getAsk() * randomStockData()));
+              s.setPercent(round(s.getPercent() * randomStockData()));
+              s.setPlusMinus(round(s.getPlusMinus() * randomStockData()));
               s.setTime(cal.getTime().toString());
             }
           });
-          Thread.sleep(5000);
+          Thread.sleep(4000);
         } catch (InterruptedException e) {
           throw new RuntimeException(e);
         }
@@ -61,6 +60,19 @@ public class StockManager {
     });
     updateThread.setDaemon(true);
     updateThread.start();
+  }
+
+  public static float round(float d) {
+    BigDecimal bd = new BigDecimal(Float.toString(d));
+    bd = bd.setScale(2, RoundingMode.HALF_UP);
+    return bd.floatValue();
+  }
+
+  private static StockManager singleInstance = null;
+
+  public static float randomStockData() {
+    Random rand = new Random();
+    return rand.nextFloat(8, 12) / 10.0f;
   }
 
   /**
