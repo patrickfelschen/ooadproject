@@ -18,12 +18,12 @@ public class Depot {
     this.setAskSum(0);
   }
 
-  public void setAskSum(float askSum) {
-    this.askSum.set(askSum);
-  }
-
   public double getAskSum() {
     return askSum.get();
+  }
+
+  public void setAskSum(float askSum) {
+    this.askSum.set(askSum);
   }
 
   /**

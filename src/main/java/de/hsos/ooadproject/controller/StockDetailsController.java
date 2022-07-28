@@ -29,22 +29,33 @@ public class StockDetailsController extends Routable {
   private Stock stock;
 
   /**
-   * Lädt übergebene Aktie und stellt den Inhalt dar.
+   * Setzt das aus der Route übergebene Element.
    *
+   * @param data Übergebene Aktie.
+   */
+  @Override
+  public void setData(Object data) {
+    if (data == null) return;
+    initialize((Stock) data);
+  }
+
+  /**
    * @param stock Anzuzeigende Aktie.
    */
-  public void setStock(Stock stock) {
+  private void initialize(Stock stock) {
     this.stock = stock;
-    this.lbStockName.setText(stock.getName());
-    this.lbSymbol.setText(stock.getSymbol());
-    this.lbVortag.setText(String.valueOf(stock.getVortag()));
-    this.lbAsk.setText(String.valueOf(stock.getAsk()));
-    this.lbBid.setText(String.valueOf(stock.getBid()));
-    this.lbPercent.setText(String.valueOf(stock.getPercent()));
-    this.lbPlusMinus.setText(String.valueOf(stock.getPlusMinus()));
-    this.lbTime.setText(stock.getTime().toString());
+    this.series = new XYChart.Series<>();
 
-    // Koppeln der Properties an UI-Elemente ermöglicht dynamische Aktualisierung.
+    this.bindLabels();
+    this.createLineChart();
+
+    this.setHistoryLastMonth(null);
+  }
+
+  /**
+   * Koppeln der Properties an UI-Elemente ermöglicht dynamische Aktualisierung.
+   */
+  private void bindLabels() {
     lbStockName.textProperty().bind(Bindings.convert(stock.nameProperty()));
     lbSymbol.textProperty().bind(Bindings.convert(stock.symbolProperty()));
     lbVortag.textProperty().bind(Bindings.convert(stock.vortagProperty()));
@@ -53,10 +64,12 @@ public class StockDetailsController extends Routable {
     lbPercent.textProperty().bind(Bindings.convert(stock.percentProperty()));
     lbPlusMinus.textProperty().bind(Bindings.convert(stock.plusMinusProperty()));
     lbTime.textProperty().bind(Bindings.convert(stock.timeProperty()));
+  }
 
-    this.series = new XYChart.Series<>();
-
-    // Diagramm-Daten aktualiseren automatisch, wenn dem Preisverlauf ein neuer Preis hinzugefügt wurde.
+  /**
+   * Diagramm-Daten aktualisieren automatisch, wenn dem Preisverlauf ein neuer Preis hinzugefügt wurde.
+   */
+  public void createLineChart() {
     stock.getHistory().addListener((ListChangeListener<HistoryPoint>) c -> {
       series.getData().clear();
       for (int i = 0; i < stock.getHistory().size(); i++) {
@@ -75,23 +88,12 @@ public class StockDetailsController extends Routable {
   /**
    * Navigiert einen Screen zurück.
    *
-   * @param e
+   * @param e Aktion
    * @throws IOException
    */
   @FXML
-  void navigateBack(ActionEvent e) throws IOException {
+  private void navigateBack(ActionEvent e) throws IOException {
     Router.getInstance().popRoute();
-  }
-
-  /**
-   * Setzt das aus der Route übergebene Element.
-   *
-   * @param data Übergebene Aktie.
-   */
-  @Override
-  public void setData(Object data) {
-    if (data == null) return;
-    setStock((Stock) data);
   }
 
   /**
@@ -100,7 +102,8 @@ public class StockDetailsController extends Routable {
    * @param actionEvent
    * @throws IOException
    */
-  public void stockBuy(ActionEvent actionEvent) throws IOException {
+  @FXML
+  private void stockBuy(ActionEvent actionEvent) throws IOException {
     Router.getInstance().pushPopup("stock-buy-view.fxml", this.stock);
   }
 
@@ -110,7 +113,8 @@ public class StockDetailsController extends Routable {
    * @param actionEvent
    * @throws IOException
    */
-  public void stockSell(ActionEvent actionEvent) throws IOException {
+  @FXML
+  private void stockSell(ActionEvent actionEvent) throws IOException {
     Router.getInstance().pushPopup("stock-sell-view.fxml", this.stock);
     //Router.getInstance().pushRoute("stockSell", this.stock);
   }
@@ -120,7 +124,8 @@ public class StockDetailsController extends Routable {
    *
    * @param e
    */
-  public void setHistoryLastWeek(ActionEvent e) {
+  @FXML
+  private void setHistoryLastWeek(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(1, ChronoUnit.WEEKS);
     LocalDateTime end = LocalDateTime.now();
     this.series.setName("1 Woche");
@@ -132,7 +137,8 @@ public class StockDetailsController extends Routable {
    *
    * @param e
    */
-  public void setHistoryLastMonth(ActionEvent e) {
+  @FXML
+  private void setHistoryLastMonth(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(1, ChronoUnit.MONTHS);
     LocalDateTime end = LocalDateTime.now();
     this.series.setName("1 Monat");
@@ -144,7 +150,8 @@ public class StockDetailsController extends Routable {
    *
    * @param e
    */
-  public void setHistoryLastSixMonth(ActionEvent e) {
+  @FXML
+  private void setHistoryLastSixMonth(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(6, ChronoUnit.MONTHS);
     LocalDateTime end = LocalDateTime.now();
     this.series.setName("6 Monate");
@@ -156,7 +163,8 @@ public class StockDetailsController extends Routable {
    *
    * @param e
    */
-  public void setHistoryLastYear(ActionEvent e) {
+  @FXML
+  private void setHistoryLastYear(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
     LocalDateTime end = LocalDateTime.now();
     this.series.setName("1 Jahr");
@@ -168,7 +176,8 @@ public class StockDetailsController extends Routable {
    *
    * @param e
    */
-  public void setHistoryLastThreeYear(ActionEvent e) {
+  @FXML
+  private void setHistoryLastThreeYear(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(3, ChronoUnit.YEARS);
     LocalDateTime end = LocalDateTime.now();
     this.series.setName("3 Jahre");
@@ -180,7 +189,8 @@ public class StockDetailsController extends Routable {
    *
    * @param e
    */
-  public void setHistoryLastFiveYear(ActionEvent e) {
+  @FXML
+  private void setHistoryLastFiveYear(ActionEvent e) {
     LocalDateTime start = LocalDateTime.now().minus(5, ChronoUnit.YEARS);
     LocalDateTime end = LocalDateTime.now();
     this.series.setName("5 Jahre");

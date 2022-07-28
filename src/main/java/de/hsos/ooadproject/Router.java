@@ -72,7 +72,9 @@ public class Router {
     Parent root = loader.load();
 
     Routable routable = loader.getController();
-    routable.setData(data);
+    if (routable != null) {
+      routable.setData(data);
+    }
 
     double height;
     double width;
@@ -122,7 +124,7 @@ public class Router {
   }
 
   /**
-   * Fügt dem Stack ein Route hinzu. Routen können über den Stack von "oben nach unten" abgearbeitet werden. Ermöglicht so einfach zurück Navigieren.
+   * Fügt dem Stack eine Route hinzu. Routen können über den Stack von "oben nach unten" abgearbeitet werden. Ermöglicht so einfach zurück Navigieren.
    *
    * @param routeName Bezeichnung der Route.
    * @param data      Daten, welche der Route übergeben werden können.
@@ -137,13 +139,20 @@ public class Router {
   /**
    * Fügt dem Stack eine Route ohne Daten hinzu.
    *
-   * @param routeName
+   * @param routeName Bezeichnung der Route.
    * @throws IOException
    */
   public void pushRoute(String routeName) throws IOException {
     pushRoute(routeName, null);
   }
 
+  /**
+   * Öffnet Popup über aktueller Szene
+   *
+   * @param popupFxml fxml-Datei, welche als View verwendet werden soll
+   * @param data      optionale Daten um Popup anzuzeigen
+   * @throws IOException wenn fxml-Datei nicht geladen werden konnte
+   */
   public void pushPopup(String popupFxml, Object data) throws IOException {
     FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(popupFxml));
     Parent root = loader.load();
@@ -154,6 +163,7 @@ public class Router {
     Popup popup = new Popup();
     popup.getContent().addAll(root);
 
+    // Popup positionieren
     popup.setX(primaryStage.getX() + (primaryStage.getWidth() / 2) - (popup.getWidth() / 2));
     popup.setY(primaryStage.getY() + (primaryStage.getHeight() / 2) - (popup.getHeight() / 2));
     popup.setAutoHide(true);
@@ -162,6 +172,9 @@ public class Router {
     popupStack.push(popup);
   }
 
+  /**
+   * Schließt alle offenen Popups
+   */
   public void popAllPopups() {
     for (Popup p : popupStack) {
       p.hide();

@@ -31,6 +31,7 @@ public class StockManager {
                   new Stock("Allianz", "DE0008404005")
           )
   );
+  private static StockManager singleInstance = null;
 
   /**
    * Füllt den Preisverlauf der Aktien mit Daten und ändert in einem Thread kontinuierlich die Werte der Aktien mit zufälligen Daten.
@@ -65,8 +66,6 @@ public class StockManager {
     bd = bd.setScale(2, RoundingMode.HALF_UP);
     return bd.floatValue();
   }
-
-  private static StockManager singleInstance = null;
 
   public static float randomStockData() {
     Random rand = new Random();

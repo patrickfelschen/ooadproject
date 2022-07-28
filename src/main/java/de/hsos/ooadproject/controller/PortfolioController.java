@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  */
 public class PortfolioController extends Routable implements Initializable {
     @FXML
-    public Label portfolioValue;
+    private Label portfolioValue;
     @FXML
     private PieChart chart;
     @FXML
@@ -54,7 +54,7 @@ public class PortfolioController extends Routable implements Initializable {
     /**
      * Scheibendiagramm mit Daten füllen
      */
-    void initializeChart() {
+    private void initializeChart() {
         for (Posten p : listData) {
             // Diagrammdaten erstellen
             PieChart.Data data = new PieChart.Data(null, 0);
@@ -72,7 +72,7 @@ public class PortfolioController extends Routable implements Initializable {
     /**
      * Liste mit Daten füllen
      */
-    void initializeList() {
+    private void initializeList() {
         // Neuer Eintrag einer Liste, Zelle ist Element von Klasse PortfolioListItem
         this.portfolioList.setCellFactory(portfolioListView -> {
             PortfolioListItem item = new PortfolioListItem();
@@ -89,7 +89,7 @@ public class PortfolioController extends Routable implements Initializable {
      *
      * @param stock Aktie zu der Details angezeigt werden sollen.
      */
-    void navigateToStockDetails(Stock stock) {
+    private void navigateToStockDetails(Stock stock) {
         try {
             Router.getInstance().pushRoute("stockDetails", stock);
         } catch (IOException e) {

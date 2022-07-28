@@ -13,7 +13,17 @@ public class UserManager {
   public static Depot depot = new Depot();
   private static UserManager singleInstance = null;
 
+  /**
+   * User mit Beispielwerten füllen
+   */
   private UserManager() {
+    watchListStockIds.addAll(List.of("DE0005545503", "DE0005408116", "DE0007471377", "DE0006569403"));
+    depot.addPosten(StockManager.getInstance().getStockList().get(0), 115);
+    depot.addPosten(StockManager.getInstance().getStockList().get(2), 88);
+    depot.addPosten(StockManager.getInstance().getStockList().get(3), 9);
+    depot.addPosten(StockManager.getInstance().getStockList().get(4), 78);
+    depot.addPosten(StockManager.getInstance().getStockList().get(5), 61);
+    depot.addPosten(StockManager.getInstance().getStockList().get(6), 54);
   }
 
   /**
@@ -41,7 +51,6 @@ public class UserManager {
     if (watchListStockIds.contains(stockId)) {
       return;
     }
-
     watchListStockIds.add(stockId);
   }
 

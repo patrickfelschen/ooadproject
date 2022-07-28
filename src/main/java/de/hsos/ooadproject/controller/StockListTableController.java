@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * StockListController implementiert die Logik der Tabelle zur Übersicht aller Aktien.
  */
 public class StockListTableController implements Initializable {
-  final ObservableList<Stock> stockList = FXCollections.observableArrayList();
+  private final ObservableList<Stock> stockList = FXCollections.observableArrayList();
   @FXML
   private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
   @FXML
@@ -44,11 +44,16 @@ public class StockListTableController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    UserManager userManager = UserManager.getInstance();
     StockManager stockManager = StockManager.getInstance();
-    stockList.setAll(stockManager.getStockList());
+    this.stockList.setAll(stockManager.getStockList());
+    this.initializeTable();
+  }
 
-    // Erstellen von Tabelleneinträgen (spaltenweise). Einträge sind über Übergebene Properties an Felder aus Stock gebunden.
+  /**
+   * Tabelle anlegen und Daten einfügen
+   */
+  void initializeTable() {
+    // Erstellen von Tabelleneinträgen (spaltenweise). Einträge sind über übergebene Properties an Felder aus Stock gebunden.
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
     colVortag.setCellValueFactory(new PropertyValueFactory<>("vortag"));
@@ -68,7 +73,7 @@ public class StockListTableController implements Initializable {
         btn.setOnAction(e -> {
           Stock data = getTableView().getItems().get(getIndex());
           //System.out.println(data);
-          userManager.addStockToWatchList(data.getSymbol()); // Fügt Watchlist im UserManager das Symbol der Aktie hinzu.
+          UserManager.getInstance().addStockToWatchList(data.getSymbol()); // Fügt Watchlist im UserManager das Symbol der Aktie hinzu.
         });
       }
 
@@ -83,17 +88,16 @@ public class StockListTableController implements Initializable {
       }
     });
 
-    // Ruft beim anklicken einer Reihe die Detailübersicht der Aktie auf.
+    // Ruft beim Anklicken einer Reihe die Detailübersicht der Aktie auf.
     stockListTable.setRowFactory(tv -> {
       TableRow<Stock> row = new TableRow<>();
       row.setOnMouseClicked(event -> {
         if (!row.isEmpty()) {
           Stock rowData = row.getItem();
-          //System.out.println(rowData.getName());
           try {
-            showStockDetailScreen(rowData);
+            navigateToStockDetails(rowData);
           } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
           }
         }
       });
@@ -118,10 +122,9 @@ public class StockListTableController implements Initializable {
     });
 
     stockListTable.setItems(filteredStockList);
-
   }
 
-  void showStockDetailScreen(Stock stock) throws IOException {
+  void navigateToStockDetails(Stock stock) throws IOException {
     Router.getInstance().pushRoute("stockDetails", stock);
   }
 }

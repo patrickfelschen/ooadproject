@@ -24,10 +24,6 @@ public class Posten {
     this.askValueSum.bind(stock.askProperty().multiply(this.number));
   }
 
-  public void setAskValueSum(float askValueSum) {
-    this.askValueSum.set(askValueSum);
-  }
-
   public ObjectProperty<Stock> stockProperty() {
     return stock;
   }
@@ -61,6 +57,10 @@ public class Posten {
 
   public double getAskValueSum() {
     return askValueSum.get();
+  }
+
+  public void setAskValueSum(float askValueSum) {
+    this.askValueSum.set(askValueSum);
   }
 
   @Override
