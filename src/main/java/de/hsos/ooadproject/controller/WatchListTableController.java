@@ -122,7 +122,7 @@ public class WatchListTableController implements Initializable {
     watchListTable.setItems(filteredAktien);
   }
 
-  void showSockDetailsScreen(MouseEvent e, Stock stock) throws IOException {
+  private void showSockDetailsScreen(MouseEvent e, Stock stock) throws IOException {
     Router.getInstance().pushRoute("stockDetails", stock);
   }
 }

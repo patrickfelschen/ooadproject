@@ -52,7 +52,7 @@ public class StockListTableController implements Initializable {
   /**
    * Tabelle anlegen und Daten einfügen
    */
-  void initializeTable() {
+  private void initializeTable() {
     // Erstellen von Tabelleneinträgen (spaltenweise). Einträge sind über übergebene Properties an Felder aus Stock gebunden.
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
@@ -124,7 +124,7 @@ public class StockListTableController implements Initializable {
     stockListTable.setItems(filteredStockList);
   }
 
-  void navigateToStockDetails(Stock stock) throws IOException {
+  private void navigateToStockDetails(Stock stock) throws IOException {
     Router.getInstance().pushRoute("stockDetails", stock);
   }
 }
