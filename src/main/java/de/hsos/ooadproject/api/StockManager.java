@@ -34,7 +34,8 @@ public class StockManager {
   private static StockManager singleInstance = null;
 
   /**
-   * Füllt den Preisverlauf der Aktien mit Daten und ändert in einem Thread kontinuierlich die Werte der Aktien mit zufälligen Daten.
+   * Füllt den Preisverlauf der Aktien mit Daten und ändert in einem Thread
+   * kontinuierlich die Werte der Aktien mit zufälligen Daten.
    */
   private StockManager() {
     // Random Werte setzen
@@ -61,13 +62,24 @@ public class StockManager {
     updateThread.start();
   }
 
-  public static float round(float d) {
+  /**
+   * Rundet ein float Wert auf zwei Nachkommastellen
+   *
+   * @param d zu rundender float Wert
+   * @return gerundeter Wert
+   */
+  private float round(float d) {
     BigDecimal bd = new BigDecimal(Float.toString(d));
     bd = bd.setScale(2, RoundingMode.HALF_UP);
     return bd.floatValue();
   }
 
-  public static float randomStockChange() {
+  /**
+   * Generiert eine zufällige Aktienveränderung (+-10%)
+   *
+   * @return Aktienänderung
+   */
+  private float randomStockChange() {
     Random rand = new Random();
     return rand.nextFloat(9, 11) / 10.0f;
   }
@@ -89,12 +101,12 @@ public class StockManager {
   }
 
   /**
-   * Generiert zufällige
+   * Generiert einen zufälligen Aktienverlauf
    *
-   * @param stock
-   * @param startDate
-   * @param endDate
-   * @param interval
+   * @param stock Aktie zu der Daten generiert werden sollen
+   * @param startDate Erstes Datum
+   * @param endDate Letztes Datum
+   * @param interval Intervall indem Daten generiert werden sollen
    */
   public void setStockHistory(Stock stock, LocalDateTime startDate, LocalDateTime endDate, ChronoUnit interval) {
     List<LocalDateTime> datesInRange = new ArrayList<>();
