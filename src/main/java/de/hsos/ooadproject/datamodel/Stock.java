@@ -104,7 +104,6 @@ public class Stock {
     return plusMinus;
   }
 
-
   public String getName() {
     return this.name.get();
   }

@@ -40,9 +40,8 @@ public class Router {
 
   /**
    * @param primaryStage Stage als primärer Ausgangspunkt.
-   * @throws IOException
    */
-  public static void bind(Stage primaryStage) throws IOException {
+  public static void bind(Stage primaryStage) {
     getInstance().primaryStage = primaryStage;
   }
 
