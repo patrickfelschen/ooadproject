@@ -63,7 +63,7 @@ public class StockDetailsController extends Routable {
     lbBid.textProperty().bind(Bindings.convert(stock.bidProperty()));
     lbPercent.textProperty().bind(Bindings.convert(stock.percentProperty()));
     lbPlusMinus.textProperty().bind(Bindings.convert(stock.plusMinusProperty()));
-    lbTime.textProperty().bind(Bindings.convert(stock.timeProperty()));
+    lbTime.textProperty().bind(Bindings.convert(stock.dateTimeProperty()));
   }
 
   /**

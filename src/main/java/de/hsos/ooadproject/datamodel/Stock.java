@@ -18,7 +18,7 @@ public class Stock {
   private final FloatProperty ask = new SimpleFloatProperty(this, "ask");
   private final FloatProperty percent = new SimpleFloatProperty(this, "percent");
   private final FloatProperty plusMinus = new SimpleFloatProperty(this, "plusMinus");
-  private final ObjectProperty<LocalDateTime> time = new SimpleObjectProperty<>(this, "time");
+  private final ObjectProperty<LocalDateTime> dateTime = new SimpleObjectProperty<>(this, "dateTime");
   private final ObservableList<HistoryPoint> history = FXCollections.observableArrayList();
 
   /**
@@ -31,9 +31,9 @@ public class Stock {
    * @param ask       Nachfragepreis der Aktie.
    * @param percent   Prozentuale Preisänderung der Aktie.
    * @param plusMinus Wert der Preisänderung.
-   * @param time      Datum der letzten Aktualisierung.
+   * @param dateTime  Datum der letzten Aktualisierung.
    */
-  public Stock(String name, String symbol, float vortag, float bid, float ask, float percent, float plusMinus, LocalDateTime time) {
+  public Stock(String name, String symbol, float vortag, float bid, float ask, float percent, float plusMinus, LocalDateTime dateTime) {
     this.setName(name);
     this.setSymbol(symbol);
     this.setVortag(vortag);
@@ -41,7 +41,7 @@ public class Stock {
     this.setAsk(ask);
     this.setPercent(percent);
     this.setPlusMinus(plusMinus);
-    this.setTime(time);
+    this.setDateTime(dateTime);
   }
 
   public Stock(String name, String symbol) {
@@ -52,19 +52,19 @@ public class Stock {
     this.setAsk(1);
     this.setPercent(1);
     this.setPlusMinus(1);
-    this.setTime(LocalDateTime.now());
+    this.setDateTime(LocalDateTime.now());
   }
 
-  public LocalDateTime getTime() {
-    return time.get();
+  public LocalDateTime getDateTime() {
+    return dateTime.get();
   }
 
-  public void setTime(LocalDateTime time) {
-    this.time.set(time);
+  public void setDateTime(LocalDateTime dateTime) {
+    this.dateTime.set(dateTime);
   }
 
-  public ObjectProperty<LocalDateTime> timeProperty() {
-    return time;
+  public ObjectProperty<LocalDateTime> dateTimeProperty() {
+    return dateTime;
   }
 
   public ObservableList<HistoryPoint> getHistory() {
@@ -176,7 +176,7 @@ public class Stock {
     if (!ask.equals(stock.ask)) return false;
     if (!percent.equals(stock.percent)) return false;
     if (!plusMinus.equals(stock.plusMinus)) return false;
-    return time.equals(stock.time);
+    return dateTime.equals(stock.dateTime);
   }
 
   @Override
@@ -188,7 +188,7 @@ public class Stock {
     result = 31 * result + ask.hashCode();
     result = 31 * result + percent.hashCode();
     result = 31 * result + plusMinus.hashCode();
-    result = 31 * result + time.hashCode();
+    result = 31 * result + dateTime.hashCode();
     return result;
   }
 }

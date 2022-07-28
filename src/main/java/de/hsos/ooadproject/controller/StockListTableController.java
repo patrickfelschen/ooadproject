@@ -61,7 +61,7 @@ public class StockListTableController implements Initializable {
     colAsk.setCellValueFactory(new PropertyValueFactory<>("ask"));
     colPercent.setCellValueFactory(new PropertyValueFactory<>("percent"));
     colPlusMinus.setCellValueFactory(new PropertyValueFactory<>("plusMinus"));
-    colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+    colTime.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
 
     // Erstellen eines Buttons um Aktie zur Watchlist hinzuzufügen.
     colAction.setCellFactory(tc -> new TableCell<>() {

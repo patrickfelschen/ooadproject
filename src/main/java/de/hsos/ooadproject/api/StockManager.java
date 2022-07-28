@@ -17,7 +17,7 @@ import java.util.Random;
  * StockManager stellt eine künstliche API Schnittstelle dar.
  */
 public class StockManager {
-  public static List<Stock> stockList = new ArrayList<>(
+  private static final List<Stock> stockList = new ArrayList<>(
           List.of(
                   new Stock("1&1", "DE0005545503"),
                   new Stock("11880 Solutions", "DE0005118806"),
@@ -49,7 +49,7 @@ public class StockManager {
               s.setAsk(round(s.getAsk() * randomStockChange()));
               s.setPercent(round(s.getPercent() * randomStockChange()));
               s.setPlusMinus(round(s.getPlusMinus() * randomStockChange()));
-              s.setTime(LocalDateTime.now());
+              s.setDateTime(LocalDateTime.now());
             }
           });
           Thread.sleep(4000);

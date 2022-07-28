@@ -8,7 +8,8 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 
 /**
- * MainMenuController implementiert die Logik der Navigationsleiste und ermöglicht das wechseln der Szenen.
+ * MainMenuController implementiert die Logik der Navigationsleiste
+ * und ermöglicht das Wechseln der Szenen.
  */
 public class MainMenuController extends Routable {
   @FXML
@@ -26,7 +27,4 @@ public class MainMenuController extends Routable {
     Router.getInstance().pushRoute("portfolio");
   }
 
-  @Override
-  public void setData(Object data) {
-  }
 }

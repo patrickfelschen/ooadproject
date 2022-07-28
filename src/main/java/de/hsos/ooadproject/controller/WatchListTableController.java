@@ -49,7 +49,7 @@ public class WatchListTableController implements Initializable {
     StockManager stockManager = StockManager.getInstance();
     aktien.setAll(stockManager.getWatchList(userManager.getWatchListStockIds())); // Alle Aktien, dessen Symbol in der Watchlist gespeichert wurde.
 
-    // Erstellen von Tabelleneinträgen (spaltenweise). Einträge sind über Übergebene Properties an Felder aus Stock gebunden.
+    // Erstellen von Tabelleneinträgen (spaltenweise). Einträge sind über übergebene Properties an Felder aus Stock gebunden.
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
     colSymbol.setCellValueFactory(new PropertyValueFactory<>("symbol"));
     colVortag.setCellValueFactory(new PropertyValueFactory<>("vortag"));
@@ -57,7 +57,7 @@ public class WatchListTableController implements Initializable {
     colAsk.setCellValueFactory(new PropertyValueFactory<>("ask"));
     colPercent.setCellValueFactory(new PropertyValueFactory<>("percent"));
     colPlusMinus.setCellValueFactory(new PropertyValueFactory<>("plusMinus"));
-    colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+    colTime.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
 
     // Erstellen eines Buttons um Aktie aus Watchlist zu entfernen.
     colAction.setCellFactory(tc -> new TableCell<>() {
