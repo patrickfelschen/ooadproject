@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -20,16 +19,16 @@ import java.util.Random;
 public class StockManager {
   public static List<Stock> stockList = new ArrayList<>(
           List.of(
-                  new Stock("1&1", "DE0005545503", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("11880 Solutions", "DE0005118806", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("3U", "DE0005167902", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("Aareal Bank", "DE0005408116", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("Activa Resources", "DE0007471377", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("ADVA", "DE0005103006", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("Air Berlin", "GB00B128C026", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("ALBIS Leasing", "DE0006569403", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("All for One Group", "DE0005110001", 1, 1, 1, 1, 1, "00:00:00"),
-                  new Stock("Allianz", "DE0008404005", 1, 1, 1, 1, 1, "00:00:00")
+                  new Stock("1&1", "DE0005545503"),
+                  new Stock("11880 Solutions", "DE0005118806"),
+                  new Stock("3U", "DE0005167902"),
+                  new Stock("Aareal Bank", "DE0005408116"),
+                  new Stock("Activa Resources", "DE0007471377"),
+                  new Stock("ADVA", "DE0005103006"),
+                  new Stock("Air Berlin", "GB00B128C026"),
+                  new Stock("ALBIS Leasing", "DE0006569403"),
+                  new Stock("All for One Group", "DE0005110001"),
+                  new Stock("Allianz", "DE0008404005")
           )
   );
 
@@ -42,14 +41,13 @@ public class StockManager {
       while (true) {
         try {
           Platform.runLater(() -> {
-            Calendar cal = Calendar.getInstance();
             for (Stock s : stockList) {
               s.setVortag(round(s.getVortag() * randomStockData()));
               s.setBid(round(s.getBid() * randomStockData()));
               s.setAsk(round(s.getAsk() * randomStockData()));
               s.setPercent(round(s.getPercent() * randomStockData()));
               s.setPlusMinus(round(s.getPlusMinus() * randomStockData()));
-              s.setTime(cal.getTime().toString());
+              s.setTime(LocalDateTime.now());
             }
           });
           Thread.sleep(4000);

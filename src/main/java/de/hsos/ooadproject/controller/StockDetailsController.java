@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.stage.Popup;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -43,7 +42,7 @@ public class StockDetailsController extends Routable {
     this.lbBid.setText(String.valueOf(stock.getBid()));
     this.lbPercent.setText(String.valueOf(stock.getPercent()));
     this.lbPlusMinus.setText(String.valueOf(stock.getPlusMinus()));
-    this.lbTime.setText(stock.getTime());
+    this.lbTime.setText(stock.getTime().toString());
 
     // Koppeln der Properties an UI-Elemente ermöglicht dynamische Aktualisierung.
     lbStockName.textProperty().bind(Bindings.convert(stock.nameProperty()));

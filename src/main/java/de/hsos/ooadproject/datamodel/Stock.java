@@ -1,27 +1,25 @@
 package de.hsos.ooadproject.datamodel;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Stock stellt die Werte einer Aktie dar.
  */
 public class Stock {
-  private final StringProperty name;
-  private final StringProperty symbol;
-  private final FloatProperty vortag;
-  private final FloatProperty bid;
-  private final FloatProperty ask;
-  private final FloatProperty percent;
-  private final FloatProperty plusMinus;
-  private final StringProperty time;
-  private final ObservableList<HistoryPoint> history;
+  private final StringProperty name = new SimpleStringProperty(this, "name");
+  private final StringProperty symbol = new SimpleStringProperty(this, "symbol");
+  private final FloatProperty vortag = new SimpleFloatProperty(this, "vortag");
+  private final FloatProperty bid = new SimpleFloatProperty(this, "bid");
+  private final FloatProperty ask = new SimpleFloatProperty(this, "ask");
+  private final FloatProperty percent = new SimpleFloatProperty(this, "percent");
+  private final FloatProperty plusMinus = new SimpleFloatProperty(this, "plusMinus");
+  private final ObjectProperty<LocalDateTime> time = new SimpleObjectProperty<>(this, "time");
+  private final ObservableList<HistoryPoint> history = FXCollections.observableArrayList();
 
   /**
    * Erzeugt ein Objekt einer Aktie. Parameter werden in Properties umgewandelt, welche das Koppel an andere Objekte ermöglichen.
@@ -35,16 +33,38 @@ public class Stock {
    * @param plusMinus Wert der Preisänderung.
    * @param time      Datum der letzten Aktualisierung.
    */
-  public Stock(String name, String symbol, float vortag, float bid, float ask, float percent, float plusMinus, String time) {
-    this.name = new SimpleStringProperty(name);
-    this.symbol = new SimpleStringProperty(symbol);
-    this.vortag = new SimpleFloatProperty(vortag);
-    this.bid = new SimpleFloatProperty(bid);
-    this.ask = new SimpleFloatProperty(ask);
-    this.percent = new SimpleFloatProperty(percent);
-    this.plusMinus = new SimpleFloatProperty(plusMinus);
-    this.time = new SimpleStringProperty(time);
-    this.history = FXCollections.observableArrayList();
+  public Stock(String name, String symbol, float vortag, float bid, float ask, float percent, float plusMinus, LocalDateTime time) {
+    this.setName(name);
+    this.setSymbol(symbol);
+    this.setVortag(vortag);
+    this.setBid(bid);
+    this.setAsk(ask);
+    this.setPercent(percent);
+    this.setPlusMinus(plusMinus);
+    this.setTime(time);
+  }
+
+  public Stock(String name, String symbol) {
+    this.setName(name);
+    this.setSymbol(symbol);
+    this.setVortag(1);
+    this.setBid(1);
+    this.setAsk(1);
+    this.setPercent(1);
+    this.setPlusMinus(1);
+    this.setTime(LocalDateTime.now());
+  }
+
+  public LocalDateTime getTime() {
+    return time.get();
+  }
+
+  public void setTime(LocalDateTime time) {
+    this.time.set(time);
+  }
+
+  public ObjectProperty<LocalDateTime> timeProperty() {
+    return time;
   }
 
   public ObservableList<HistoryPoint> getHistory() {
@@ -84,9 +104,6 @@ public class Stock {
     return plusMinus;
   }
 
-  public StringProperty timeProperty() {
-    return time;
-  }
 
   public String getName() {
     return this.name.get();
@@ -144,13 +161,6 @@ public class Stock {
     this.plusMinus.set(plusMinus);
   }
 
-  public String getTime() {
-    return this.time.get();
-  }
-
-  public void setTime(String time) {
-    this.time.set(time);
-  }
 
   @Override
   public boolean equals(Object o) {

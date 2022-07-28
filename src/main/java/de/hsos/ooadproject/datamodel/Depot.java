@@ -11,12 +11,15 @@ import java.util.List;
  * Depot stellt die Werte eines Portfolios dar.
  */
 public class Depot {
-  private final ObservableList<Posten> posten;
-  private final FloatProperty askSum;
+  private final ObservableList<Posten> posten = FXCollections.observableArrayList();
+  private final FloatProperty askSum = new SimpleFloatProperty(this, "ask");
 
   public Depot() {
-    this.posten = FXCollections.observableArrayList();
-    this.askSum = new SimpleFloatProperty(this, "ask");
+    this.setAskSum(0);
+  }
+
+  public void setAskSum(float askSum) {
+    this.askSum.set(askSum);
   }
 
   public double getAskSum() {
@@ -50,7 +53,7 @@ public class Depot {
         return p;
       }
     }
-    return new Posten(new Stock("", "", 0, 0, 0, 0, 0, ""), 0);
+    return new Posten(new Stock("", ""), 0);
   }
 
   public List<Posten> getAllPosten() {

@@ -6,9 +6,9 @@ import javafx.beans.property.*;
  * Posten stellt einen Wert im Portfolio, bestehend aus Aktie und Anzahl, dar.
  */
 public class Posten {
-  private final ObjectProperty<Stock> stock;
-  private final IntegerProperty number;
-  private final FloatProperty askValueSum;
+  private final ObjectProperty<Stock> stock = new SimpleObjectProperty<>(this, "stock");
+  private final IntegerProperty number = new SimpleIntegerProperty(this, "number");
+  private final FloatProperty askValueSum = new SimpleFloatProperty(this, "askValueSum");
 
   /**
    * Erzeugt einen neuen Posten aus Aktie und Anzahl. Parameter werden in Properties umgewandelt, welche das Koppel an andere Objekte ermöglichen.
@@ -17,12 +17,15 @@ public class Posten {
    * @param number Anzahl der Aktien.
    */
   public Posten(Stock stock, int number) {
-    this.stock = new SimpleObjectProperty<>(this, "stock", stock);
-    this.number = new SimpleIntegerProperty(this, "number", number);
-    this.askValueSum = new SimpleFloatProperty(this, "askValueSum");
-
+    this.setStock(stock);
+    this.setNumber(number);
+    this.setAskValueSum(0);
     // Binden um Gesamtwert zu berechnen
     this.askValueSum.bind(stock.askProperty().multiply(this.number));
+  }
+
+  public void setAskValueSum(float askValueSum) {
+    this.askValueSum.set(askValueSum);
   }
 
   public ObjectProperty<Stock> stockProperty() {
