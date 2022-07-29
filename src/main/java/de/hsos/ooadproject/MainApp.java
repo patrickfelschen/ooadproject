@@ -9,7 +9,7 @@ public class MainApp extends Application {
   public void start(Stage stage) throws Exception {
     stage.setTitle("Aktienverwaltung");
 
-    Image image = new Image(String.valueOf(MainApp.class.getResource("img/1024.png")));
+    Image image = new Image(String.valueOf(MainApp.class.getResource("img/icon.png")));
     stage.getIcons().add(image);
 
     Router.bind(stage);
