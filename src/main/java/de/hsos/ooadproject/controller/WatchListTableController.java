@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * WatchListTableController implementiert die Logik der Tabelle zur Übersicht favorisierter Aktien.
  */
 public class WatchListTableController implements Initializable {
-  final ObservableList<Stock> aktien = FXCollections.observableArrayList();
+  private final ObservableList<Stock> stockWatchList = FXCollections.observableArrayList();
   @FXML
   private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
   @FXML
@@ -47,7 +47,7 @@ public class WatchListTableController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     UserManager userManager = UserManager.getInstance();
     StockManager stockManager = StockManager.getInstance();
-    aktien.setAll(stockManager.getWatchList(userManager.getWatchListStockIds())); // Alle Aktien, dessen Symbol in der Watchlist gespeichert wurde.
+    stockWatchList.setAll(stockManager.getWatchList(userManager.getWatchListStockIds())); // Alle Aktien, dessen Symbol in der Watchlist gespeichert wurde.
 
     // Erstellen von Tabelleneinträgen (spaltenweise). Einträge sind über übergebene Properties an Felder aus Stock gebunden.
     colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -70,7 +70,7 @@ public class WatchListTableController implements Initializable {
           Stock data = getTableView().getItems().get(getIndex());
           //System.out.println(data);
           userManager.removeStockFromWatchList(data.getSymbol());
-          aktien.setAll(stockManager.getWatchList(userManager.getWatchListStockIds()));
+          stockWatchList.setAll(stockManager.getWatchList(userManager.getWatchListStockIds()));
         });
       }
 
@@ -103,7 +103,7 @@ public class WatchListTableController implements Initializable {
     });
 
     // Filtern der List nach eigegebenem Suchwort.
-    FilteredList<Stock> filteredWatchList = new FilteredList<>(aktien);
+    FilteredList<Stock> filteredWatchList = new FilteredList<>(stockWatchList);
 
     this.searchField.textProperty().addListener((observable, oldValue, newValue) -> {
       filteredWatchList.setPredicate(stock -> {
