@@ -5,6 +5,9 @@ import de.hsos.ooadproject.api.UserManager;
 import de.hsos.ooadproject.datamodel.Depot;
 import de.hsos.ooadproject.datamodel.Stock;
 import de.hsos.ooadproject.interfaces.Routable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,47 +24,46 @@ public class StockSellController extends Routable implements Initializable {
   private Label lbStockName, lbAsk, lbAmount;
   @FXML
   private Spinner<Integer> spAmount;
-  //private IntegerSpinnerValueFactory spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE);
   private Depot depot;
   private Stock stock;
 
+  @Override
   public void initialize(URL location, ResourceBundle resources) {
     UserManager userManager = UserManager.getInstance();
     this.depot = userManager.getDepot();
   }
 
-  public void setStock(Stock stock) {
+  private void setStock(Stock stock) {
     this.stock = stock;
-    this.lbStockName.setText(stock.getName());
-    this.lbAsk.setText(String.valueOf(stock.getAsk()));
-    this.lbAmount.setText("0.0");
 
-    // Bind listener to properties and update the UI
-    this.stock.bidProperty().addListener(
-            (observable, oldValue, newValue) -> {
-              this.lbAsk.setText(String.valueOf(newValue));
-              this.lbAmount.setText(String.valueOf(newValue.floatValue() * this.spAmount.getValue()));
-            }
-    );
-
+    // Spinner einstellen
     SpinnerValueFactory<Integer> valueFactory =
-            new SpinnerValueFactory.IntegerSpinnerValueFactory(0, this.depot.getPosten(stock).getNumber());
+            new SpinnerValueFactory
+                    .IntegerSpinnerValueFactory(0, this.depot.getPosten(stock).getNumber());
 
     this.spAmount.setValueFactory(valueFactory);
-    this.spAmount.valueProperty().addListener(
-            (obs, oldValue, newValue) -> {
-              this.lbAmount.setText(String.valueOf(stock.getBid() * newValue));
-            }
+
+    // Ask Wert mit Anzahl multiplizieren
+    NumberBinding total = stock.askProperty().multiply(
+            ReadOnlyIntegerProperty.readOnlyIntegerProperty(
+                    spAmount.valueProperty()
+            )
     );
 
+    // Labels setzen
+    this.lbStockName.setText(stock.getName());
+    this.lbAmount.textProperty().bind(Bindings.convert(total));
+    this.lbAsk.textProperty().bind(Bindings.convert(stock.askProperty()));
   }
 
-  public void sellStock(ActionEvent e) throws IOException {
+  @FXML
+  private void sellStock(ActionEvent e) throws IOException {
     this.depot.removePosten(this.stock, this.spAmount.getValue());
     Router.getInstance().pushRoute("portfolio");
   }
 
-  public void cancel(ActionEvent e) {
+  @FXML
+  private void cancel(ActionEvent e) {
     Router.getInstance().popAllPopups();
   }
 
