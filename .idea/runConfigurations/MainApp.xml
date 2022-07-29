@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="de.hsos.ooadproject.Main" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="de.hsos.ooadproject.Main" />
+  <configuration default="false" name="MainApp" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="de.hsos.ooadproject.MainApp" />
     <module name="ooadproject.main" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="de.hsos.ooadproject.interfaces.*" />
+        <option name="PATTERN" value="de.hsos.ooadproject.api.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

@@ -3,6 +3,9 @@ package de.hsos.ooadproject.api;
 import de.hsos.ooadproject.datamodel.HistoryPoint;
 import de.hsos.ooadproject.datamodel.Stock;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,7 +20,7 @@ import java.util.Random;
  * StockManager stellt eine künstliche API Schnittstelle dar.
  */
 public class StockManager {
-  private static final List<Stock> stockList = new ArrayList<>(
+  private static final ObservableList<Stock> stockList = FXCollections.observableArrayList(
           List.of(
                   new Stock("1&1", "DE0005545503"),
                   new Stock("11880 Solutions", "DE0005118806"),
@@ -96,7 +99,7 @@ public class StockManager {
     return singleInstance;
   }
 
-  public List<Stock> getStockList() {
+  public ObservableList<Stock> getStockList() {
     return stockList;
   }
 
@@ -141,15 +144,8 @@ public class StockManager {
    * @return Liste von Aktien, die zu den Symbolen gehören.
    */
   public List<Stock> getWatchList(List<String> stockIds) {
-    List<Stock> watchList = new ArrayList<>();
-    for (Stock s : getStockList()) {
-      for (String id : stockIds) {
-        if (s.getSymbol().equals(id)) {
-          watchList.add(s);
-          break;
-        }
-      }
-    }
+    FilteredList<Stock> watchList = new FilteredList<>(getStockList());
+    watchList.setPredicate(stock -> stockIds.contains(stock.getSymbol()));
     return watchList;
   }
 

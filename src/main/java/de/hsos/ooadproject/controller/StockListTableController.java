@@ -7,7 +7,6 @@ import de.hsos.ooadproject.datamodel.Stock;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.enums.ButtonType;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -26,7 +25,6 @@ import java.util.ResourceBundle;
  * StockListController implementiert die Logik der Tabelle zur Übersicht aller Aktien.
  */
 public class StockListTableController implements Initializable {
-  private final ObservableList<Stock> stockList = FXCollections.observableArrayList();
   @FXML
   private TableColumn<Stock, String> colName, colSymbol, colVortag, colBid, colAsk, colPercent, colPlusMinus, colTime, colAction;
   @FXML
@@ -44,9 +42,8 @@ public class StockListTableController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    StockManager stockManager = StockManager.getInstance();
-    this.stockList.setAll(stockManager.getStockList());
     this.initializeTable();
+    this.initializeTableData();
   }
 
   /**
@@ -72,7 +69,6 @@ public class StockListTableController implements Initializable {
         btn.setButtonType(ButtonType.RAISED);
         btn.setOnAction(e -> {
           Stock data = getTableView().getItems().get(getIndex());
-          //System.out.println(data);
           UserManager.getInstance().addStockToWatchList(data.getSymbol()); // Fügt Watchlist im UserManager das Symbol der Aktie hinzu.
         });
       }
@@ -103,8 +99,11 @@ public class StockListTableController implements Initializable {
       });
       return row;
     });
+  }
 
-    // Filtern der List nach eigegebenem Suchwort.
+  private void initializeTableData() {
+    // Filtern der List nach eingegebenem Suchwort.
+    ObservableList<Stock> stockList = StockManager.getInstance().getStockList();
     FilteredList<Stock> filteredStockList = new FilteredList<>(stockList);
 
     this.searchField.textProperty().addListener((observable, oldValue, newValue) -> {

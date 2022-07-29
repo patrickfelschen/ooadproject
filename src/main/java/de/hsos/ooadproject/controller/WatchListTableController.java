@@ -103,10 +103,10 @@ public class WatchListTableController implements Initializable {
     });
 
     // Filtern der List nach eigegebenem Suchwort.
-    FilteredList<Stock> filteredAktien = new FilteredList<>(aktien);
+    FilteredList<Stock> filteredWatchList = new FilteredList<>(aktien);
 
     this.searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-      filteredAktien.setPredicate(stock -> {
+      filteredWatchList.setPredicate(stock -> {
         if (newValue.isEmpty() || newValue.isBlank()) {
           return true;
         }
@@ -119,7 +119,7 @@ public class WatchListTableController implements Initializable {
       });
     });
 
-    watchListTable.setItems(filteredAktien);
+    watchListTable.setItems(filteredWatchList);
   }
 
   private void showSockDetailsScreen(MouseEvent e, Stock stock) throws IOException {
