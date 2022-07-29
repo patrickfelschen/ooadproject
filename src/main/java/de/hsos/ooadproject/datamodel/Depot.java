@@ -76,7 +76,7 @@ public class Depot {
     }
     // Posten existiert nicht, Posten neu anlegen
     Posten newPosten = new Posten(stock, number);
-    // Stock Ask Änderungen sollen zum neuberechnen des Gesamt Asks führen
+    // Stock Ask Änderungen sollen zum Neuberechnen des Gesamt Asks führen
     newPosten.getStock().askProperty().addListener((obs, o, n) -> {
       this.updateAskSum();
     });

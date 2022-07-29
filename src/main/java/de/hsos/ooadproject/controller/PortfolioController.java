@@ -58,7 +58,7 @@ public class PortfolioController extends Routable implements Initializable {
         for (Posten p : listData) {
             // Diagrammdaten erstellen
             PieChart.Data data = new PieChart.Data(null, 0);
-            data.nameProperty().bind(p.getStock().nameProperty());
+            data.setName(p.getStock().getName());
             data.pieValueProperty().bind(p.askValueSumProperty());
             this.chartData.add(data);
         }
