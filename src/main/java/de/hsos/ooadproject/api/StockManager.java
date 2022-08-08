@@ -67,6 +67,18 @@ public class StockManager {
   }
 
   /**
+   * Zur Umsetzung des Singleton Patterns.
+   *
+   * @return Instanz des StockManagers.
+   */
+  public static StockManager getInstance() {
+    if (singleInstance == null) {
+      singleInstance = new StockManager();
+    }
+    return singleInstance;
+  }
+
+  /**
    * Rundet ein float Wert auf zwei Nachkommastellen
    *
    * @param d zu rundender float Wert
@@ -88,18 +100,6 @@ public class StockManager {
     return rand.nextFloat(9, 11) / 10.0f;
   }
 
-  /**
-   * Zur Umsetzung des Singleton Patterns.
-   *
-   * @return Instanz des StockManagers.
-   */
-  public static StockManager getInstance() {
-    if (singleInstance == null) {
-      singleInstance = new StockManager();
-    }
-    return singleInstance;
-  }
-
   public ObservableList<Stock> getStockList() {
     return stockList;
   }
@@ -107,10 +107,10 @@ public class StockManager {
   /**
    * Generiert einen zufälligen Aktienverlauf
    *
-   * @param stock Aktie zu der Daten generiert werden sollen
+   * @param stock     Aktie zu der Daten generiert werden sollen
    * @param startDate Erstes Datum
-   * @param endDate Letztes Datum
-   * @param interval Intervall indem Daten generiert werden sollen
+   * @param endDate   Letztes Datum
+   * @param interval  Intervall indem Daten generiert werden sollen
    */
   public void setStockHistory(Stock stock, LocalDateTime startDate, LocalDateTime endDate, ChronoUnit interval) {
     List<LocalDateTime> datesInRange = new ArrayList<>();
