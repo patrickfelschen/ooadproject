@@ -31,12 +31,28 @@ public class StockBuyController extends Routable implements Initializable {
   private Depot depot;
   private Stock stock;
 
+  /**
+   * Beim Aufrufen werden die Depot-Daten geladen
+   *
+   * @param location
+   * The location used to resolve relative paths for the root object, or
+   * {@code null} if the location is not known.
+   *
+   * @param resources
+   * The resources used to localize the root object, or {@code null} if
+   * the root object was not localized.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     UserManager userManager = UserManager.getInstance();
     this.depot = userManager.getDepot();
   }
 
+  /**
+   * Lädt die Werte der Aktie und setzt sie in der Oberfläche
+   *
+   * @param stock
+   */
   private void setStock(Stock stock) {
     this.stock = stock;
 
@@ -60,6 +76,12 @@ public class StockBuyController extends Routable implements Initializable {
     this.lbBid.textProperty().bind(Bindings.convert(stock.bidProperty()));
   }
 
+  /**
+   * Ändert die Posten im Depot um die gekauften Aktien und schickt den Nutzer zurück aufs Portfolio
+   *
+   * @param e
+   * @throws IOException
+   */
   @FXML
   private void buyStock(ActionEvent e) throws IOException {
     this.depot.addPosten(this.stock, this.spAmount.getValue());

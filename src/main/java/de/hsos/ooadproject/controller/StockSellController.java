@@ -31,12 +31,27 @@ public class StockSellController extends Routable implements Initializable {
   private Depot depot;
   private Stock stock;
 
+  /**
+   * Beim Aufrufen werden die Depot-Daten geladen
+   * @param location
+   * The location used to resolve relative paths for the root object, or
+   * {@code null} if the location is not known.
+   *
+   * @param resources
+   * The resources used to localize the root object, or {@code null} if
+   * the root object was not localized.
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     UserManager userManager = UserManager.getInstance();
     this.depot = userManager.getDepot();
   }
 
+  /**
+   * Lädt die Werte der Aktie und setzt sie in der Oberfläche und begrenzt dabei den maximalen Verkauf von Aktien
+   *
+   * @param stock
+   */
   private void setStock(Stock stock) {
     this.stock = stock;
 
@@ -60,6 +75,11 @@ public class StockSellController extends Routable implements Initializable {
     this.lbAsk.textProperty().bind(Bindings.convert(stock.askProperty()));
   }
 
+  /**
+   * Ändert die Posten im Depot um die verkauften Aktien und schickt den Nutzer zurück aufs Portfolio
+   * @param e
+   * @throws IOException
+   */
   @FXML
   private void sellStock(ActionEvent e) throws IOException {
     this.depot.removePosten(this.stock, this.spAmount.getValue());
