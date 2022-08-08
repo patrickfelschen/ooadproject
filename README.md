@@ -1,4 +1,2 @@
-# ooadproject
-OOAD Project - JavaFX
-
-Hausarbeit OOAD SoSe 2022
+# Objektorientierte Analyse und Design - Projekt
+## Thema: JavaFX
