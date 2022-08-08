@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Depot stellt die Werte eines Portfolios dar.
+ * verantwortlich: Janek Büscher
+ * mitwirkend: Patrick Felschen
  */
 public class Depot {
   private final ObservableList<Posten> posten = FXCollections.observableArrayList();

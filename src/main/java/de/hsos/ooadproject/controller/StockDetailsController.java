@@ -19,6 +19,8 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * StockDetailsController stellt Werte einer Aktie in Text- und Diagrammform dar.
+ * verantwortlich: Patrick Felschen
+ * mitwirkend: Janek Büscher
  */
 public class StockDetailsController extends Routable {
   @FXML

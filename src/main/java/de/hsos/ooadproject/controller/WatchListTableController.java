@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 /**
  * WatchListTableController implementiert die Logik der Tabelle zur Übersicht favorisierter Aktien.
+ * verantwortlich: Julian Voß
+ * mitwirkend: Patrick Felschen, Janek Büscher
  */
 public class WatchListTableController implements Initializable {
   private final ObservableList<Stock> stockWatchList = FXCollections.observableArrayList();

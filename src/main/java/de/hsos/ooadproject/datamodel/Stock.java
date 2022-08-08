@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Stock stellt die Werte einer Aktie dar.
+ * verantwortlich: Julian Voß
  */
 public class Stock {
   private final StringProperty name = new SimpleStringProperty(this, "name");

@@ -14,6 +14,8 @@ import java.util.Stack;
 
 /**
  * Router ermöglicht das Wechseln zwischen verschiedenen Szenen.
+ * verantwortlich: Janek Büscher
+ * mitwirkend: Julian Voß, Patrick Felschen
  */
 public class Router {
   private static Router singleInstance = null;

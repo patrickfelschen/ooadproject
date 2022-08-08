@@ -4,6 +4,10 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * verantwortlich: Patrick Felschen
+ * mitwirkend: Julian Voß
+ */
 public class MainApp extends Application {
   @Override
   public void start(Stage stage) throws Exception {

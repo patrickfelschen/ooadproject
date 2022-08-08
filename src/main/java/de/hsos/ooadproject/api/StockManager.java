@@ -18,6 +18,7 @@ import java.util.Random;
 
 /**
  * StockManager stellt eine künstliche API Schnittstelle dar.
+ * verantwortlich: Patrick Felschen
  */
 public class StockManager {
   private static final ObservableList<Stock> stockList = FXCollections.observableArrayList(

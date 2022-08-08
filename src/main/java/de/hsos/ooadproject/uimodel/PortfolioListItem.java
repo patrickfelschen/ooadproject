@@ -13,6 +13,8 @@ import java.io.IOException;
 
 /**
  * PortfolioListItem stellt ein Listenelement im Portfolio dar.
+ * verantwortlich: Julian Voß
+ * mitwirkend: Patrick Felschen
  */
 public class PortfolioListItem extends ListCell<Posten> {
   @FXML

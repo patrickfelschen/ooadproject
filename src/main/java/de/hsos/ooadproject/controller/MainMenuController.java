@@ -10,6 +10,8 @@ import java.io.IOException;
 /**
  * MainMenuController implementiert die Logik der Navigationsleiste
  * und ermöglicht das Wechseln der Szenen.
+ * verantwortlich: Julian Voß
+ * mitwirkend: Patrick Felschen
  */
 public class MainMenuController extends Routable {
   @FXML

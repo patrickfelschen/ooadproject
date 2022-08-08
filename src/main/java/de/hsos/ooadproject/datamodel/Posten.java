@@ -4,6 +4,8 @@ import javafx.beans.property.*;
 
 /**
  * Posten stellt einen Wert im Portfolio, bestehend aus Aktie und Anzahl, dar.
+ * verantwortlich: Patrick Felschen
+ * mitwirkend: Julian Voß
  */
 public class Posten {
   private final ObjectProperty<Stock> stock = new SimpleObjectProperty<>(this, "stock");

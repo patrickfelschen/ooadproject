@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * UserManager stellt die Werte eines Nutzers dar.
+ * verantwortlich: Patrick Felschen
  */
 public class UserManager {
   private static final List<String> watchListStockIds = new ArrayList<>();

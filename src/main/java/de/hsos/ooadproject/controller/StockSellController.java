@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * verantwortlich: Janek Büscher
+ * mitwirkend: Patrick Felschen
+ */
 public class StockSellController extends Routable implements Initializable {
   @FXML
   private Label lbStockName, lbAsk, lbAmount;

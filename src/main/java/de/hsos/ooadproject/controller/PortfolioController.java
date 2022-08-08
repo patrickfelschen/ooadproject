@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 
 /**
  * PortfolioController implementiert die Logik der Portfolio-List und des Diagramms.
+ * verantwortlich: Julian Voß
+ * mitwirkend: Patrick Felschen, Janek Büscher
  */
 public class PortfolioController extends Routable implements Initializable {
     @FXML

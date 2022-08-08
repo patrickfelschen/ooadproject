@@ -23,6 +23,8 @@ import java.util.ResourceBundle;
 
 /**
  * StockListController implementiert die Logik der Tabelle zur Übersicht aller Aktien.
+ * verantwortlich: Patrick Felschen
+ * mitwirkend: Julian Voß
  */
 public class StockListTableController implements Initializable {
   @FXML

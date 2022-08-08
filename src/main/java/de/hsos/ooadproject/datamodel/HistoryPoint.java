@@ -2,6 +2,7 @@ package de.hsos.ooadproject.datamodel;
 
 /**
  * HistoryPoint stellt den Nachfragepreis einer Aktie zu einem gewissen Zeitpunkt dar.
+ * verantwortlich: Patrick Felschen
  */
 public class HistoryPoint {
   private String date;
